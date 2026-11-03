@@ -1,0 +1,20 @@
+flowchart TD
+  U[Người dùng chọn PDF hoặc ảnh] --> UP[POST documents]
+  UP --> J[202 Job document_parse]
+  J --> OCR[Worker Layout và OCR]
+  OCR --> C[Content gồm outline và blocks]
+  C --> NAV[Giao diện điều hướng theo reading_order]
+  NAV --> INPUT{Cách nhập yêu cầu}
+  INPUT -->|Bàn phím hoặc văn bản| REQ[Câu hỏi và block_id]
+  INPUT -->|Ghi âm| STT[POST transcriptions và polling job STT]
+  STT --> CONF[Xác nhận khi chưa rõ]
+  CONF --> REQ
+  REQ --> VQA[POST captions hoặc questions]
+  VQA --> OUT[Kết quả có evidence và needs_review]
+  OUT --> TEXT[Hiện văn bản và giữ focus]
+  OUT -->|Bật đọc tự động| TTS[POST speech và polling job TTS]
+  TTS --> MEDIA[GET media bằng token]
+  MEDIA --> PLAY[Phát audio và highlight khối]
+  OCR -->|Lỗi| ERR[Thông báo dễ tiếp cận và thử lại]
+  VQA -->|Lỗi| ERR
+  TTS -->|Lỗi| ERR

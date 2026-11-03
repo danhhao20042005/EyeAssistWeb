@@ -1,0 +1,12 @@
+flowchart LR
+  U[Người dùng] --> FE[Web UI<br/>Bàn phím và giọng nói]
+  FE -->|REST và token phiên| API[FastAPI<br/>Kiểm tra và điều phối]
+  API -->|Job| W[Worker riêng]
+  W --> OCR[Layout và OCR]
+  W --> VQA[Caption và VQA]
+  W --> SP[STT và TTS]
+  API <--> STORE[(SQLite và kho tệp riêng)]
+  W <--> STORE
+  W -->|Ghi kết quả job| API
+  API -->|Nội dung và media| FE
+  FE -->|Text và audio và earcon| U
