@@ -1,0 +1,26 @@
+{
+  "thresholds": {
+    "trusted": 0.70,
+    "refuse": 0.50
+  },
+  "weights": {
+    "model_confidence": 0.5,
+    "grounding_score": 0.3,
+    "image_quality_score": 0.2
+  },
+  "forced_fallback_conditions": [
+    "answerable == false",
+    "chart_type == 'unknown'",
+    "answer contains a number not present in data_points",
+    "title or main axis label is null while the question needs it",
+    "API timeout or invalid JSON after 1 retry"
+  ],
+  "messages": {
+    "uncertain": "Mình chưa chắc chắn lắm về kết quả này. Theo những gì mình nhìn thấy, {answer}. Bạn nên kiểm tra lại giá trị này nếu cần độ chính xác cao. Bạn muốn mình chụp lại ảnh, hay đọc phần chữ xung quanh biểu đồ không?",
+    "blurry_image": "Hình ảnh biểu đồ đang bị mờ nên mình không đọc được rõ các con số. Bạn thử đưa tài liệu lại gần hơn hoặc chụp ở nơi đủ sáng, sau đó nói 'chụp lại' nhé.",
+    "not_in_chart": "Trong biểu đồ này mình không thấy thông tin về {topic}. Mình chỉ có thể đọc những gì đang hiển thị. Bạn muốn nghe tiêu đề, nhãn các trục và chú giải không?",
+    "needs_outside_info": "Câu hỏi này cần thêm thông tin ngoài biểu đồ nên mình không thể trả lời chắc chắn. Mình có thể mô tả những gì biểu đồ đang thể hiện, bạn có muốn nghe không?",
+    "system_error": "Hệ thống đang gặp sự cố khi phân tích biểu đồ. Bạn có thể nói 'thử lại', hoặc nói 'đọc văn bản' để nghe phần chữ trong tài liệu.",
+    "unknown_chart_type": "Mình không xác định được đây là loại biểu đồ nào. Mình sẽ đọc các chữ xuất hiện trong khu vực này để bạn nắm được nội dung."
+  }
+}

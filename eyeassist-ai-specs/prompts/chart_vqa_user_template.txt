@@ -1,0 +1,3 @@
+[Chế độ: {mode}]
+Câu hỏi của người dùng: "{question}"
+Trả về JSON theo đúng schema.
