@@ -1,6 +1,6 @@
 # Tài liệu chung EyeAssist
 
-`EyeAssist_Bao_cao_chung_v0.1.docx` là bản làm việc chung của Nhóm 11, lập ngày 03/11/2026.
+
 
 - Chương 1–3: tổng quan, khung nghiên cứu người dùng và thiết kế tương tác.
 - Chương 4: kiến trúc, hai sơ đồ, dữ liệu, điều phối, lưu trữ và độ trễ.
