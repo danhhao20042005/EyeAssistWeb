@@ -15,4 +15,4 @@ Nguồn biên tập nằm trong `source/bao-cao-chung.md`; `source/build_documen
 
 Kiểm tra đã thực hiện: đọc tài liệu nguồn, kiểm tra 7 ví dụ JSON, kiểm tra cấu trúc heading, liên kết mục lục và hai ảnh nhúng. Bộ render đi kèm thiếu LibreOffice; Word tự động không khởi động hoàn tất trong môi trường này. **Chưa xác minh phân trang và bố cục toàn bộ DOCX bằng bản render.** Cần mở file trong Word và kiểm tra ngắt trang, bảng dài trước khi dùng làm bản nộp.
 
-Contracts là tài liệu thiết kế v0.1, chưa phải API đã triển khai. Các lựa chọn cần nhóm thống nhất gồm worker riêng, polling, giới hạn file, thời hạn phiên, dịch vụ AI và cách đo mục tiêu 2,5 giây.
+Contracts là tài liệu thiết kế v0.1, chưa phải API đã triển khai. Các lựa chọn cần nhóm thống nhất gồm worker riêng, polling, giới hạn file, thời hạn phiên, dịch vụ AI ...
