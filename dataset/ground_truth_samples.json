@@ -1,0 +1,23 @@
+{
+  "sample_01_slide.png": {
+    "type": "slide",
+    "title": "BÀI 3: PHÂN TÍCH BỐ CỤC TÀI LIỆU (LAYOUT ANALYSIS)",
+    "bullets": [
+      "Khái niệm về Document Layout Analysis (DLA)",
+      "Phân vùng Text, Heading, Table, Chart",
+      "Khôi phục thứ tự đọc tự nhiên cho văn bản đa cột"
+    ]
+  },
+  "sample_02_bar_chart.png": {
+    "type": "bar_chart",
+    "title": "DOANH THU CÁC THÁNG QUÝ 1 (TRIỆU VNĐ)",
+    "data_points": [
+      {"label": "Tháng 1", "value": 150},
+      {"label": "Tháng 2", "value": 210},
+      {"label": "Tháng 3", "value": 180}
+    ],
+    "highest_point": {"label": "Tháng 2", "value": 210},
+    "lowest_point": {"label": "Tháng 1", "value": 150},
+    "general_trend": "Doanh thu đạt đỉnh vào Tháng 2 và giảm nhẹ ở Tháng 3"
+  }
+}
