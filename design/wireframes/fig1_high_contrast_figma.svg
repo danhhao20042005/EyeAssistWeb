@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1620" height="780" viewBox="0 0 1620 780">
+<rect width="1620" height="780" fill="#E9EAEC"/>
+<rect x="20" y="20" width="780" height="700" fill="#000000" stroke="#FFFFFF" stroke-width="3"/>
+<rect x="20" y="20" width="780" height="58" fill="#000000" stroke="#FFFFFF"/>
+<line x1="20" y1="78" x2="800" y2="78" stroke="#FFFFFF" stroke-width="3"/>
+<text x="40" y="58" font-size="24" fill="#FFD600" font-weight="bold" text-anchor="start" font-family="Arial">EyeAssist</text>
+<rect x="680" y="29" width="100" height="40" rx="4" fill="#000000" stroke="#FFD600" stroke-width="3"/>
+<text x="730.0" y="55" font-size="15" fill="#FFD600" font-weight="bold" text-anchor="middle" font-family="Arial">Mic (M)</text>
+<rect x="502" y="29" width="168" height="40" rx="4" fill="#FFD600" stroke="#FFD600" stroke-width="3"/>
+<text x="586.0" y="55" font-size="15" fill="#000000" font-weight="bold" text-anchor="middle" font-family="Arial">Tương phản (C)</text>
+<rect x="362" y="29" width="130" height="40" rx="4" fill="#000000" stroke="#FFD600" stroke-width="3"/>
+<text x="427.0" y="55" font-size="15" fill="#FFD600" font-weight="bold" text-anchor="middle" font-family="Arial">Zoom 100%</text>
+<rect x="20" y="78" width="190" height="572" fill="#111111"/>
+<line x1="210" y1="78" x2="210" y2="650" stroke="#FFFFFF" stroke-width="2"/>
+<text x="36" y="112" font-size="14" fill="#FFD600" font-weight="bold" text-anchor="start" font-family="Arial">MỤC LỤC</text>
+<text x="40" y="158" font-size="16" fill="#FFFFFF" font-weight="normal" text-anchor="start" font-family="Arial">1. Giới thiệu</text>
+<rect x="28" y="178" width="174" height="38" rx="4" fill="#000000" stroke="#FFD600" stroke-width="3"/>
+<text x="40" y="204" font-size="16" fill="#FFD600" font-weight="bold" text-anchor="start" font-family="Arial">2. Doanh thu</text>
+<text x="40" y="250" font-size="16" fill="#FFFFFF" font-weight="normal" text-anchor="start" font-family="Arial">3. Chi phí</text>
+<text x="40" y="296" font-size="16" fill="#FFFFFF" font-weight="normal" text-anchor="start" font-family="Arial">4. Kết luận</text>
+<text x="238" y="126" font-size="26" fill="#FFFFFF" font-weight="bold" text-anchor="start" font-family="Arial">2. Doanh thu quý 3</text>
+<text x="238" y="160" font-size="16" fill="#FFFFFF" font-weight="normal" text-anchor="start" font-family="Arial">Doanh thu toàn công ty tăng đều trong ba quý đầu năm.</text>
+<rect x="228" y="182" width="534" height="128" rx="6" fill="#000000" stroke="#FFD600" stroke-width="6"/>
+<rect x="234" y="188" width="522" height="116" rx="3" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+<text x="246" y="220" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="start" font-family="Arial">Quý 3 đạt 120 tỷ đồng, cao hơn quý 2</text>
+<text x="246" y="250" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="start" font-family="Arial">khoảng 15%, chủ yếu nhờ mảng dịch vụ</text>
+<text x="246" y="280" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="start" font-family="Arial">trực tuyến. Xem biểu đồ bên dưới.</text>
+<rect x="598" y="168" width="150" height="26" rx="4" fill="#FFD600"/>
+<text x="673" y="187" font-size="14" fill="#000000" font-weight="bold" text-anchor="middle" font-family="Arial">Đang đọc 2/5</text>
+<rect x="228" y="330" width="534" height="150" rx="4" fill="#111111" stroke="#FFFFFF" stroke-width="2"/>
+<rect x="278" y="410" width="46" height="50" fill="#FFD600"/>
+<rect x="348" y="390" width="46" height="70" fill="#FFD600"/>
+<rect x="418" y="360" width="46" height="100" fill="#FFD600"/>
+<line x1="258" y1="460" x2="488" y2="460" stroke="#FFFFFF" stroke-width="2"/>
+<text x="508" y="386" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="start" font-family="Arial">[HÌNH] Biểu đồ cột</text>
+<text x="508" y="414" font-size="15" fill="#FFFFFF" font-weight="normal" text-anchor="start" font-family="Arial">Chưa có mô tả thay thế</text>
+<rect x="508" y="428" width="250" height="36" rx="4" fill="#000000" stroke="#FFD600" stroke-width="3"/>
+<text x="633" y="452" font-size="14" fill="#FFD600" font-weight="bold" text-anchor="middle" font-family="Arial">Nhấn G hoặc D để nghe mô tả</text>
+<line x1="20" y1="650" x2="800" y2="650" stroke="#FFFFFF" stroke-width="3"/>
+<rect x="40" y="664" width="110" height="42" rx="4" fill="#000000" stroke="#FFD600" stroke-width="3"/>
+<text x="95.0" y="692" font-size="16" fill="#FFD600" font-weight="bold" text-anchor="middle" font-family="Arial">&lt; Trước</text>
+<rect x="160" y="664" width="150" height="42" rx="4" fill="#FFD600" stroke="#FFD600" stroke-width="3"/>
+<text x="235.0" y="692" font-size="16" fill="#000000" font-weight="bold" text-anchor="middle" font-family="Arial">Phát (Space)</text>
+<rect x="320" y="664" width="110" height="42" rx="4" fill="#000000" stroke="#FFD600" stroke-width="3"/>
+<text x="375.0" y="692" font-size="16" fill="#FFD600" font-weight="bold" text-anchor="middle" font-family="Arial">Sau &gt;</text>
+<text x="780" y="692" font-size="16" fill="#FFFFFF" font-weight="normal" text-anchor="end" font-family="Arial">Tốc độ 1.0x</text>
+<text x="40" y="750" font-size="18" fill="#222" font-weight="bold" text-anchor="start" font-family="Arial">Đen - Vàng</text>
+<rect x="820" y="20" width="780" height="700" fill="#FFFFFF" stroke="#000000" stroke-width="3"/>
+<rect x="820" y="20" width="780" height="58" fill="#FFFFFF" stroke="#000000"/>
+<line x1="820" y1="78" x2="1600" y2="78" stroke="#000000" stroke-width="3"/>
+<text x="840" y="58" font-size="24" fill="#0033CC" font-weight="bold" text-anchor="start" font-family="Arial">EyeAssist</text>
+<rect x="1480" y="29" width="100" height="40" rx="4" fill="#FFFFFF" stroke="#0033CC" stroke-width="3"/>
+<text x="1530.0" y="55" font-size="15" fill="#0033CC" font-weight="bold" text-anchor="middle" font-family="Arial">Mic (M)</text>
+<rect x="1302" y="29" width="168" height="40" rx="4" fill="#0033CC" stroke="#0033CC" stroke-width="3"/>
+<text x="1386.0" y="55" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Arial">Tương phản (C)</text>
+<rect x="1162" y="29" width="130" height="40" rx="4" fill="#FFFFFF" stroke="#0033CC" stroke-width="3"/>
+<text x="1227.0" y="55" font-size="15" fill="#0033CC" font-weight="bold" text-anchor="middle" font-family="Arial">Zoom 100%</text>
+<rect x="820" y="78" width="190" height="572" fill="#F2F2F2"/>
+<line x1="1010" y1="78" x2="1010" y2="650" stroke="#000000" stroke-width="2"/>
+<text x="836" y="112" font-size="14" fill="#0033CC" font-weight="bold" text-anchor="start" font-family="Arial">MỤC LỤC</text>
+<text x="840" y="158" font-size="16" fill="#000000" font-weight="normal" text-anchor="start" font-family="Arial">1. Giới thiệu</text>
+<rect x="828" y="178" width="174" height="38" rx="4" fill="#FFFFFF" stroke="#0033CC" stroke-width="3"/>
+<text x="840" y="204" font-size="16" fill="#0033CC" font-weight="bold" text-anchor="start" font-family="Arial">2. Doanh thu</text>
+<text x="840" y="250" font-size="16" fill="#000000" font-weight="normal" text-anchor="start" font-family="Arial">3. Chi phí</text>
+<text x="840" y="296" font-size="16" fill="#000000" font-weight="normal" text-anchor="start" font-family="Arial">4. Kết luận</text>
+<text x="1038" y="126" font-size="26" fill="#000000" font-weight="bold" text-anchor="start" font-family="Arial">2. Doanh thu quý 3</text>
+<text x="1038" y="160" font-size="16" fill="#000000" font-weight="normal" text-anchor="start" font-family="Arial">Doanh thu toàn công ty tăng đều trong ba quý đầu năm.</text>
+<rect x="1028" y="182" width="534" height="128" rx="6" fill="#FFFFFF" stroke="#0033CC" stroke-width="6"/>
+<rect x="1034" y="188" width="522" height="116" rx="3" fill="none" stroke="#000000" stroke-width="2"/>
+<text x="1046" y="220" font-size="17" fill="#000000" font-weight="bold" text-anchor="start" font-family="Arial">Quý 3 đạt 120 tỷ đồng, cao hơn quý 2</text>
+<text x="1046" y="250" font-size="17" fill="#000000" font-weight="bold" text-anchor="start" font-family="Arial">khoảng 15%, chủ yếu nhờ mảng dịch vụ</text>
+<text x="1046" y="280" font-size="17" fill="#000000" font-weight="bold" text-anchor="start" font-family="Arial">trực tuyến. Xem biểu đồ bên dưới.</text>
+<rect x="1398" y="168" width="150" height="26" rx="4" fill="#0033CC"/>
+<text x="1473" y="187" font-size="14" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Arial">Đang đọc 2/5</text>
+<rect x="1028" y="330" width="534" height="150" rx="4" fill="#F2F2F2" stroke="#000000" stroke-width="2"/>
+<rect x="1078" y="410" width="46" height="50" fill="#0033CC"/>
+<rect x="1148" y="390" width="46" height="70" fill="#0033CC"/>
+<rect x="1218" y="360" width="46" height="100" fill="#0033CC"/>
+<line x1="1058" y1="460" x2="1288" y2="460" stroke="#000000" stroke-width="2"/>
+<text x="1308" y="386" font-size="17" fill="#000000" font-weight="bold" text-anchor="start" font-family="Arial">[HÌNH] Biểu đồ cột</text>
+<text x="1308" y="414" font-size="15" fill="#000000" font-weight="normal" text-anchor="start" font-family="Arial">Chưa có mô tả thay thế</text>
+<rect x="1308" y="428" width="250" height="36" rx="4" fill="#FFFFFF" stroke="#0033CC" stroke-width="3"/>
+<text x="1433" y="452" font-size="14" fill="#0033CC" font-weight="bold" text-anchor="middle" font-family="Arial">Nhấn G hoặc D để nghe mô tả</text>
+<line x1="820" y1="650" x2="1600" y2="650" stroke="#000000" stroke-width="3"/>
+<rect x="840" y="664" width="110" height="42" rx="4" fill="#FFFFFF" stroke="#0033CC" stroke-width="3"/>
+<text x="895.0" y="692" font-size="16" fill="#0033CC" font-weight="bold" text-anchor="middle" font-family="Arial">&lt; Trước</text>
+<rect x="960" y="664" width="150" height="42" rx="4" fill="#0033CC" stroke="#0033CC" stroke-width="3"/>
+<text x="1035.0" y="692" font-size="16" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Arial">Phát (Space)</text>
+<rect x="1120" y="664" width="110" height="42" rx="4" fill="#FFFFFF" stroke="#0033CC" stroke-width="3"/>
+<text x="1175.0" y="692" font-size="16" fill="#0033CC" font-weight="bold" text-anchor="middle" font-family="Arial">Sau &gt;</text>
+<text x="1580" y="692" font-size="16" fill="#000000" font-weight="normal" text-anchor="end" font-family="Arial">Tốc độ 1.0x</text>
+<text x="840" y="750" font-size="18" fill="#222" font-weight="bold" text-anchor="start" font-family="Arial">Trắng - Đen</text>
+<circle cx="214" cy="190" r="15" fill="#D6006E"/>
+<text x="214" y="196" font-size="17" fill="#fff" font-weight="bold" text-anchor="middle" font-family="Arial">1</text>
+<circle cx="585" cy="30" r="15" fill="#D6006E"/>
+<text x="585" y="36" font-size="17" fill="#fff" font-weight="bold" text-anchor="middle" font-family="Arial">2</text>
+<circle cx="34" cy="120" r="15" fill="#D6006E"/>
+<text x="34" y="126" font-size="17" fill="#fff" font-weight="bold" text-anchor="middle" font-family="Arial">3</text>
+<circle cx="718" cy="350" r="15" fill="#D6006E"/>
+<text x="718" y="356" font-size="17" fill="#fff" font-weight="bold" text-anchor="middle" font-family="Arial">4</text>
+<circle cx="720" cy="676" r="15" fill="#D6006E"/>
+<text x="720" y="682" font-size="17" fill="#fff" font-weight="bold" text-anchor="middle" font-family="Arial">5</text>
+</svg>
