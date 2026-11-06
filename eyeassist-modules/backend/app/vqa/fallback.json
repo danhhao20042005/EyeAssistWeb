@@ -1,0 +1,12 @@
+{
+  "thresholds": {"trusted": 0.70, "refuse": 0.50, "blurry_image_quality": 0.25},
+  "weights": {"model_confidence": 0.5, "grounding_score": 0.3, "image_quality_score": 0.2},
+  "messages": {
+    "uncertain": "Mình chưa chắc chắn lắm về kết quả này. Theo những gì mình nhìn thấy, {answer} Bạn nên kiểm tra lại giá trị này nếu cần độ chính xác cao. Bạn muốn mình chụp lại ảnh, hay đọc phần chữ xung quanh biểu đồ không?",
+    "low_confidence": "Mình không đủ chắc chắn để đọc con số từ biểu đồ này. Bạn muốn nghe tiêu đề, nhãn các trục và chú giải, hay chụp lại ảnh?",
+    "blurry_image": "Hình ảnh biểu đồ đang bị mờ nên mình không đọc được rõ các con số. Bạn thử đưa tài liệu lại gần hơn hoặc chụp ở nơi đủ sáng, sau đó nói 'chụp lại' nhé.",
+    "not_in_chart": "Trong biểu đồ này mình không thấy thông tin để trả lời câu hỏi của bạn. Mình chỉ có thể đọc những gì đang hiển thị. Bạn muốn nghe tiêu đề, nhãn các trục và chú giải không?",
+    "system_error": "Hệ thống đang gặp sự cố khi phân tích biểu đồ. Bạn có thể nói 'thử lại', hoặc nói 'đọc văn bản' để nghe phần chữ trong tài liệu.",
+    "unknown_chart_type": "Mình không xác định được đây là loại biểu đồ nào. Mình sẽ đọc các chữ xuất hiện trong khu vực này để bạn nắm được nội dung."
+  }
+}

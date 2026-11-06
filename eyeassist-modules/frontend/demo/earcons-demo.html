@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EyeAssist - Nghe thử Earcons</title>
+  <style>
+    body { font: 18px/1.5 system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; background:#000; color:#ff0; }
+    button { font: inherit; padding: .8rem 1.2rem; margin: .3rem; background:#ff0; color:#000; border:3px solid #ff0; border-radius:8px; cursor:pointer; }
+    button:focus-visible { outline: 4px solid #fff; outline-offset: 3px; }
+    label { display:block; margin: 1rem 0; }
+    #log { min-height: 2rem; }
+  </style>
+</head>
+<body>
+  <h1>Nghe thử Earcons</h1>
+  <p>Phím tắt: 1 = Phát hiện biểu đồ, 2 = Chuyển vùng đọc, 3 = Báo lỗi, 4 = AI không chắc chắn.</p>
+  <div id="buttons"></div>
+  <label>Âm lượng <input id="vol" type="range" min="0" max="1" step="0.05" value="1"></label>
+  <label><input id="on" type="checkbox" checked> Bật âm báo</label>
+  <button id="help">Đọc giải thích các âm (TTS)</button>
+  <p id="log" role="status" aria-live="polite"></p>
+
+  <script type="module">
+    import { earcons, EARCON_DEFS } from "../src/lib/audio/earcons.js";
+    const names = Object.keys(EARCON_DEFS);
+    const log = document.getElementById("log");
+    const box = document.getElementById("buttons");
+
+    names.forEach((name, i) => {
+      const b = document.createElement("button");
+      b.textContent = `${i + 1}. ${EARCON_DEFS[name].label}`;
+      b.onclick = () => fire(name);
+      box.append(b);
+    });
+
+    async function fire(name) {
+      await earcons.unlock();
+      const ms = earcons.play(name);
+      log.textContent = ms ? `Đã phát "${EARCON_DEFS[name].label}" (${ms} ms)` : `Bỏ qua "${EARCON_DEFS[name].label}" (tắt âm, chống lặp hoặc có âm ưu tiên cao hơn đang phát)`;
+    }
+    document.addEventListener("keydown", (e) => { const n = names[Number(e.key) - 1]; if (n) fire(n); });
+    document.getElementById("vol").oninput = (e) => earcons.setVolume(Number(e.target.value));
+    document.getElementById("on").onchange = (e) => earcons.setEnabled(e.target.checked);
+    document.getElementById("help").onclick = () => {
+      const u = new SpeechSynthesisUtterance(earcons.describe());
+      u.lang = "vi-VN";
+      speechSynthesis.speak(u);
+    };
+  </script>
+</body>
+</html>
