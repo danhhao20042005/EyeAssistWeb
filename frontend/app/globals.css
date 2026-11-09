@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+:root[data-theme='standard'] {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --ac: #0b3d91;
+  --pane: #f2f2f2;
+  --on-ac: #ffffff;
+  --ring-outer: #0b3d91;
+  --ring-inner: #1a1a1a;
+  color-scheme: light;
+}
+
+:root[data-theme='dark-yellow'] {
+  --bg: #000000;
+  --fg: #ffffff;
+  --ac: #ffd600;
+  --pane: #111111;
+  --on-ac: #000000;
+  --ring-outer: #ffd600;
+  --ring-inner: #ffffff;
+  color-scheme: dark;
+}
+
+:root[data-theme='light-black'] {
+  --bg: #ffffff;
+  --fg: #000000;
+  --ac: #0033cc;
+  --pane: #f2f2f2;
+  --on-ac: #ffffff;
+  --ring-outer: #0033cc;
+  --ring-inner: #000000;
+  color-scheme: light;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  font-family: Inter, 'Segoe UI', Arial, sans-serif;
+}
+
+:focus-visible {
+  outline: 4px solid var(--ring-outer);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--ring-inner);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded border-[3px] border-ac bg-bg px-3 text-base font-bold text-ac;
+  }
+  .btn:hover {
+    @apply bg-ac text-onac;
+  }
+  .btn[aria-pressed='true'],
+  .btn-primary {
+    @apply bg-ac text-onac;
+  }
+  .kbd {
+    @apply inline-flex min-h-[40px] min-w-[40px] items-center justify-center rounded-md border-[3px] border-ac bg-bg px-2 text-base font-bold text-fg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight;
+    box-shadow: none;
+  }
+}
