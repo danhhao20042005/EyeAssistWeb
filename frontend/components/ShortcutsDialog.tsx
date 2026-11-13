@@ -3,9 +3,12 @@
 import { Fragment, useEffect, useRef } from 'react';
 import { useAccessibility } from '@/lib/accessibility';
 import { SHORTCUT_GROUPS } from '@/lib/shortcuts';
+import { EARCON_LABEL, earconPlayer, type EarconName } from '@/lib/earcons';
+
+const PREVIEW: EarconName[] = ['ready', 'done', 'heading', 'figure', 'table', 'uncertain', 'low', 'error'];
 
 export function ShortcutsDialog() {
-  const { helpOpen, closeHelp, shortcutsEnabled, toggleShortcuts } = useAccessibility();
+  const { helpOpen, closeHelp, shortcutsEnabled, toggleShortcuts, earconVolume } = useAccessibility();
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -66,6 +69,27 @@ export function ShortcutsDialog() {
           </section>
         ))}
       </div>
+
+      <section aria-labelledby="earcon-preview" className="mt-6 border-t-[3px] border-fg pt-4">
+        <h3 id="earcon-preview" className="mb-2 text-lg font-extrabold text-ac">
+          Nghe thử âm báo
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {PREVIEW.map((name) => (
+            <button
+              key={name}
+              type="button"
+              className="btn"
+              onClick={() => {
+                earconPlayer.setVolume(earconVolume);
+                earconPlayer.play(name);
+              }}
+            >
+              {EARCON_LABEL[name]}
+            </button>
+          ))}
+        </div>
+      </section>
 
       <div className="mt-6 flex flex-wrap items-center gap-3 border-t-[3px] border-fg pt-4">
         <button type="button" className="btn" aria-pressed={shortcutsEnabled} onClick={toggleShortcuts}>

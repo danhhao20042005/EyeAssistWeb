@@ -23,6 +23,10 @@ export function Toolbar() {
     toggleFollow,
     shortcutsEnabled,
     toggleShortcuts,
+    earcons,
+    toggleEarcons,
+    earconVolume,
+    setEarconVolume,
     openHelp,
   } = useAccessibility();
 
@@ -82,6 +86,24 @@ export function Toolbar() {
           <button type="button" className="btn" aria-pressed={follow} onClick={toggleFollow}>
             Bám vùng đọc (Z): {follow ? 'Bật' : 'Tắt'}
           </button>
+        </div>
+
+        <div role="group" aria-label="Âm báo" className="flex flex-wrap items-center gap-2">
+          <button type="button" className="btn" aria-pressed={earcons} onClick={toggleEarcons}>
+            Âm báo (E): {earcons ? 'Bật' : 'Tắt'}
+          </button>
+          <label className="flex items-center gap-2 font-bold">
+            <span>Âm lượng</span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={Math.round(earconVolume * 100)}
+              onChange={(event) => setEarconVolume(Number(event.target.value) / 100)}
+              className="h-11 w-28 accent-ac"
+            />
+          </label>
         </div>
 
         <div role="group" aria-label="Phím tắt" className="flex flex-wrap items-center gap-2">

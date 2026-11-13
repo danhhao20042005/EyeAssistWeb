@@ -41,6 +41,7 @@ export function useViewerShortcuts(reader: Reader) {
     resetZoom,
     toggleFollow,
     cycleZoomMode,
+    toggleEarcons,
     openHelp,
     announce,
   } = a11y;
@@ -151,6 +152,10 @@ export function useViewerShortcuts(reader: Reader) {
           handled();
           cycleZoomMode();
           return;
+        case 'e':
+          handled();
+          toggleEarcons();
+          return;
         case 'd':
           handled();
           reader.describeFigure();
@@ -177,6 +182,7 @@ export function useViewerShortcuts(reader: Reader) {
       resetZoom,
       toggleFollow,
       cycleZoomMode,
+      toggleEarcons,
       openHelp,
       announce,
     ],

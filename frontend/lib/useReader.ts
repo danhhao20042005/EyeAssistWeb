@@ -15,11 +15,14 @@ export function splitSentences(text: string): string[] {
 type Options = {
   blocks: Block[];
   announce: (message: string) => void;
+  onNavigate?: (type: BlockType) => void;
 };
 
 export type WordRange = [number, number] | null;
 
-export function useReader({ blocks, announce }: Options) {
+export function useReader({ blocks, announce, onNavigate }: Options) {
+  const onNavigateRef = useRef(onNavigate);
+  onNavigateRef.current = onNavigate;
   const [current, setCurrent] = useState(0);
   const [sentence, setSentence] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -115,8 +118,9 @@ export function useReader({ blocks, announce }: Options) {
       setPosition(clamped, 0);
       announce(describeBlock(clamped));
       if (playingRef.current) speakAt(clamped, 0);
+      else onNavigateRef.current?.(blocks[clamped].type);
     },
-    [announce, blocks.length, describeBlock, setPosition, speakAt],
+    [announce, blocks, describeBlock, setPosition, speakAt],
   );
 
   const next = useCallback(() => {

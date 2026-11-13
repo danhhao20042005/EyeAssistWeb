@@ -28,6 +28,7 @@ export const SHORTCUT_GROUPS: ShortcutGroup[] = [
       { keys: ['←', '→'], label: 'Lùi hoặc tới một câu' },
       { keys: ['[', ']'], label: 'Giảm hoặc tăng tốc độ đọc' },
       { keys: ['S'], label: 'Dừng đọc' },
+      { keys: ['E'], label: 'Bật hoặc tắt âm báo (earcon)' },
     ],
   },
   {

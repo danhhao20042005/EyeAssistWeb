@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { DEMO_BLOCKS } from '@/lib/demoDocument';
 import { useAccessibility } from '@/lib/accessibility';
 import { useReader } from '@/lib/useReader';
+import { useEarcons } from '@/lib/useEarcons';
 import { useGlobalShortcuts } from '@/lib/useShortcuts';
 import { Toolbar } from '@/components/Toolbar';
 import { TocNav } from '@/components/TocNav';
@@ -14,7 +15,8 @@ import { ShortcutsDialog } from '@/components/ShortcutsDialog';
 
 export function EyeAssistApp() {
   const { announce, follow, zoomMode } = useAccessibility();
-  const reader = useReader({ blocks: DEMO_BLOCKS, announce });
+  const { play } = useEarcons();
+  const reader = useReader({ blocks: DEMO_BLOCKS, announce, onNavigate: play });
   const [pinned, setPinned] = useState(0);
 
   useGlobalShortcuts();

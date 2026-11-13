@@ -42,6 +42,8 @@ type Prefs = {
   zoomMode: ZoomMode;
   follow: boolean;
   shortcutsEnabled: boolean;
+  earcons: boolean;
+  earconVolume: number;
 };
 
 const DEFAULTS: Prefs = {
@@ -50,6 +52,8 @@ const DEFAULTS: Prefs = {
   zoomMode: 'docked',
   follow: true,
   shortcutsEnabled: true,
+  earcons: true,
+  earconVolume: 0.6,
 };
 
 type AccessibilityValue = Prefs & {
@@ -63,6 +67,8 @@ type AccessibilityValue = Prefs & {
   cycleZoomMode: () => void;
   toggleFollow: () => void;
   toggleShortcuts: () => void;
+  toggleEarcons: () => void;
+  setEarconVolume: (value: number) => void;
   openHelp: () => void;
   closeHelp: () => void;
 };
@@ -78,6 +84,9 @@ function loadPrefs(): Prefs | null {
     if (!CONTRAST_ORDER.includes(next.contrast)) next.contrast = DEFAULTS.contrast;
     if (!ZOOM_MODE_ORDER.includes(next.zoomMode)) next.zoomMode = DEFAULTS.zoomMode;
     next.zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Number(next.zoom) || DEFAULTS.zoom));
+    next.earcons = typeof next.earcons === 'boolean' ? next.earcons : DEFAULTS.earcons;
+    const volume = Number(next.earconVolume);
+    next.earconVolume = Number.isFinite(volume) ? Math.min(1, Math.max(0, volume)) : DEFAULTS.earconVolume;
     return next;
   } catch {
     return null;
@@ -171,6 +180,16 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
     announce(next ? 'Phím tắt một phím: bật' : 'Phím tắt một phím: tắt');
   }, [prefs.shortcutsEnabled, announce]);
 
+  const toggleEarcons = useCallback(() => {
+    const next = !prefs.earcons;
+    setPrefs((p) => ({ ...p, earcons: next }));
+    announce(next ? 'Âm báo: bật' : 'Âm báo: tắt');
+  }, [prefs.earcons, announce]);
+
+  const setEarconVolume = useCallback((value: number) => {
+    setPrefs((p) => ({ ...p, earconVolume: Math.min(1, Math.max(0, value)) }));
+  }, []);
+
   const openHelp = useCallback(() => setHelpOpen(true), []);
   const closeHelp = useCallback(() => setHelpOpen(false), []);
 
@@ -187,6 +206,8 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
       cycleZoomMode,
       toggleFollow,
       toggleShortcuts,
+      toggleEarcons,
+      setEarconVolume,
       openHelp,
       closeHelp,
     }),
@@ -202,6 +223,8 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
       cycleZoomMode,
       toggleFollow,
       toggleShortcuts,
+      toggleEarcons,
+      setEarconVolume,
       openHelp,
       closeHelp,
     ],
