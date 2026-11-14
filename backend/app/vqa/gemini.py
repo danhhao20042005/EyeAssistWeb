@@ -167,4 +167,6 @@ class GeminiVQA:
                     raise VQAUnavailable("Khóa Gemini API không hợp lệ hoặc không có quyền") from exc
                 if code == 429:
                     raise VQATimeout("Gemini đang quá tải, vui lòng thử lại sau") from exc
-                raise VQAError(f"Gemini báo lỗi (mã {code})") from exc
+                if code == 404:
+                    raise VQAError(f"Không tìm thấy mô hình '{self.model}'. Đổi GEMINI_MODEL trong .env sang mô hình còn hoạt động") from exc
+                raise VQAError(f"Gemini báo lỗi (mã {code}): {getattr(exc, 'message', None) or exc}") from exc
