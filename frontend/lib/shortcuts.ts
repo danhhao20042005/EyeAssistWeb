@@ -44,9 +44,9 @@ export const SHORTCUT_GROUPS: ShortcutGroup[] = [
   {
     group: 'Giọng nói và AI',
     items: [
-      { keys: ['D'], label: 'Mô tả hình đang chọn' },
+      { keys: ['D'], label: 'Mô tả hình đang chọn (AI mô tả nếu chưa có)' },
       { keys: ['M'], label: 'Bật hoặc tắt micro', pending: true },
-      { keys: ['Q'], label: 'Hỏi đáp về mục đang chọn', pending: true },
+      { keys: ['Q'], label: 'Hỏi đáp AI về mục đang chọn' },
       { keys: ['U'], label: 'Nhảy tới cảnh báo AI gần nhất', pending: true },
     ],
   },

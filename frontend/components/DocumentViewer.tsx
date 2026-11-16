@@ -10,7 +10,29 @@ import { Highlighted } from '@/components/Highlighted';
 type Props = {
   blocks: Block[];
   reader: Reader;
+  onAsk?: () => void;
+  onDescribe?: () => void;
 };
+
+function FigureCrop({ block }: { block: Block }) {
+  const c = block.crop;
+  if (!c) return null;
+  const px = c.pw === c.w ? 0 : (c.x / (c.pw - c.w)) * 100;
+  const py = c.ph === c.h ? 0 : (c.y / (c.ph - c.h)) * 100;
+  return (
+    <div
+      role="img"
+      aria-label={block.description ?? 'Hình trong tài liệu, chưa có mô tả'}
+      className="w-full max-w-[560px] border-[3px] border-fg bg-white bg-no-repeat"
+      style={{
+        aspectRatio: `${c.w} / ${c.h}`,
+        backgroundImage: `url(${c.url})`,
+        backgroundSize: `${(c.pw / c.w) * 100}% ${(c.ph / c.h) * 100}%`,
+        backgroundPosition: `${px}% ${py}%`,
+      }}
+    />
+  );
+}
 
 function BarChart({ block }: { block: Block }) {
   const data = block.chart ?? [];
@@ -64,9 +86,13 @@ function BlockBody({ block, active, reader }: { block: Block; active: boolean; r
   if (block.type === 'figure') {
     return (
       <figure>
-        <BarChart block={block} />
+        {block.chart ? <BarChart block={block} /> : <FigureCrop block={block} />}
         <figcaption className="mt-2 font-bold">{block.text}</figcaption>
-        <p className="mt-1 font-bold text-ac">Chưa có mô tả thay thế. Nhấn D để nghe mô tả.</p>
+        <p className="mt-1 font-bold text-ac">
+          {block.aiDescription && block.description
+            ? `Mô tả do AI tạo, có thể chưa chính xác: ${block.description}`
+            : 'Chưa có mô tả thay thế. Nhấn D để nghe mô tả.'}
+        </p>
       </figure>
     );
   }
@@ -77,23 +103,23 @@ function BlockBody({ block, active, reader }: { block: Block; active: boolean; r
         <caption className="mb-2 text-left font-bold">{block.text}</caption>
         <thead>
           <tr>
-            {head.map((cell) => (
-              <th key={cell} scope="col" className="border-[3px] border-fg bg-pane px-3 py-2">
+            {head.map((cell, c) => (
+              <th key={c} scope="col" className="border-[3px] border-fg bg-pane px-3 py-2">
                 {cell}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {body.map((row) => (
-            <tr key={row[0]}>
+          {body.map((row, r) => (
+            <tr key={r}>
               {row.map((cell, c) =>
                 c === 0 ? (
-                  <th key={cell} scope="row" className="border-[3px] border-fg px-3 py-2">
+                  <th key={c} scope="row" className="border-[3px] border-fg px-3 py-2">
                     {cell}
                   </th>
                 ) : (
-                  <td key={cell} className="border-[3px] border-fg px-3 py-2">
+                  <td key={c} className="border-[3px] border-fg px-3 py-2">
                     {cell}
                   </td>
                 ),
@@ -107,9 +133,9 @@ function BlockBody({ block, active, reader }: { block: Block; active: boolean; r
   return <p>{highlighted}</p>;
 }
 
-export function DocumentViewer({ blocks, reader }: Props) {
+export function DocumentViewer({ blocks, reader, onAsk, onDescribe }: Props) {
   const { zoom, zoomMode } = useAccessibility();
-  const onKeyDown = useViewerShortcuts(reader);
+  const onKeyDown = useViewerShortcuts(reader, { onAsk, onDescribe });
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -159,6 +185,12 @@ export function DocumentViewer({ blocks, reader }: Props) {
                 {TYPE_LABEL[block.type]} {i + 1} trên {blocks.length}.
               </span>
               <BlockBody block={block} active={active} reader={reader} />
+              {block.type !== 'figure' && block.confidence !== undefined && block.confidence < 0.85 && (
+                <p className="mt-3 border-2 border-dashed border-fg p-2 text-sm font-bold">
+                  ⚠ {block.confidence < 0.6 ? 'Nhận dạng không đủ tin cậy' : 'Nhận dạng chưa chắc chắn'} (
+                  {Math.round(block.confidence * 100)}%). Nhấn Q để hỏi AI kiểm tra lại.
+                </p>
+              )}
             </div>
           );
         })}

@@ -32,7 +32,13 @@ export function useGlobalShortcuts() {
   }, [openHelp]);
 }
 
-export function useViewerShortcuts(reader: Reader) {
+type ViewerActions = {
+  onAsk?: () => void;
+  onDescribe?: () => void;
+};
+
+export function useViewerShortcuts(reader: Reader, actions: ViewerActions = {}) {
+  const { onAsk, onDescribe } = actions;
   const a11y = useAccessibility();
   const {
     shortcutsEnabled,
@@ -158,10 +164,15 @@ export function useViewerShortcuts(reader: Reader) {
           return;
         case 'd':
           handled();
-          reader.describeFigure();
+          if (onDescribe) onDescribe();
+          else reader.describeFigure();
+          return;
+        case 'q':
+          handled();
+          if (onAsk) onAsk();
+          else announce('Chưa có tài liệu để hỏi đáp');
           return;
         case 'm':
-        case 'q':
         case 'u':
           handled();
           announce('Chức năng giọng nói và hỏi đáp AI sẽ được tích hợp ở bước sau');
@@ -185,6 +196,8 @@ export function useViewerShortcuts(reader: Reader) {
       toggleEarcons,
       openHelp,
       announce,
+      onAsk,
+      onDescribe,
     ],
   );
 }

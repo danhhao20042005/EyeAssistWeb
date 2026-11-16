@@ -3,7 +3,7 @@
 import { useAccessibility } from '@/lib/accessibility';
 import type { Reader } from '@/lib/useReader';
 
-export function PlayerBar({ reader, total }: { reader: Reader; total: number }) {
+export function PlayerBar({ reader, total, onAsk }: { reader: Reader; total: number; onAsk?: () => void }) {
   const { announcement } = useAccessibility();
 
   return (
@@ -21,6 +21,11 @@ export function PlayerBar({ reader, total }: { reader: Reader; total: number }) 
         <button type="button" className="btn" onClick={reader.stop}>
           Dừng (S)
         </button>
+        {onAsk && (
+          <button type="button" className="btn" onClick={onAsk}>
+            Hỏi AI (Q)
+          </button>
+        )}
         <span className="font-bold">Tốc độ: {reader.speed.toFixed(2).replace(/0$/, '')}x ([ ])</span>
         <span className="font-bold">
           Mục {reader.current + 1}/{total}

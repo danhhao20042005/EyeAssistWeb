@@ -38,7 +38,7 @@ class Settings:
     max_upload_mb: int = 25
     max_pages: int = 60
     use_text_layer: bool = True
-    cors_origins: list[str] = field(default_factory=lambda: ["http://localhost:3000"])
+    cors_origins: list[str] = field(default_factory=lambda: ["http://localhost:3000", "http://127.0.0.1:3000"])
     max_concurrent_jobs: int = 2
     vqa_timeout_s: float = 40.0
     confident_threshold: float = 0.85
@@ -52,7 +52,7 @@ class Settings:
 
 def load_settings() -> Settings:
     env = os.environ.get
-    origins = [o.strip() for o in env("CORS_ORIGINS", "http://localhost:3000").split(",") if o.strip()]
+    origins = [o.strip() for o in env("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",") if o.strip()]
     return Settings(
         gemini_api_key=env("GEMINI_API_KEY") or None,
         gemini_model=env("GEMINI_MODEL", "gemini-2.5-flash"),

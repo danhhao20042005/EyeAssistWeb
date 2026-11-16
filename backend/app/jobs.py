@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import shutil
 import time
 import uuid
@@ -9,6 +10,8 @@ import numpy as np
 
 from app.pipeline.pipeline import DocumentPipeline
 from app.schemas import Block, DocumentResult, JobStatus
+
+logger = logging.getLogger("eyeassist.jobs")
 
 
 class JobStore:
@@ -94,9 +97,14 @@ async def run_job(
             job.status = "error"
             job.error = str(exc)
             return
-        except Exception:
+        except Exception as exc:
+            logger.exception("Xử lý tài liệu thất bại: %s", filename)
             job.status = "error"
-            job.error = "Xử lý tài liệu thất bại"
+            name = type(exc).__name__
+            if "TesseractNotFound" in name or "tesseract is not installed" in str(exc).lower():
+                job.error = "Không tìm thấy Tesseract OCR. Hãy cài Tesseract và đặt TESSERACT_CMD trong .env"
+            else:
+                job.error = f"Xử lý tài liệu thất bại ({name}: {str(exc)[:160]})"
             return
         job.result = result
         job.progress = 1.0

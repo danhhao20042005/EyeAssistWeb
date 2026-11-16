@@ -15,7 +15,7 @@ export function splitSentences(text: string): string[] {
 type Options = {
   blocks: Block[];
   announce: (message: string) => void;
-  onNavigate?: (type: BlockType) => void;
+  onNavigate?: (block: Block) => void;
 };
 
 export type WordRange = [number, number] | null;
@@ -118,7 +118,7 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
       setPosition(clamped, 0);
       announce(describeBlock(clamped));
       if (playingRef.current) speakAt(clamped, 0);
-      else onNavigateRef.current?.(blocks[clamped].type);
+      else onNavigateRef.current?.(blocks[clamped]);
     },
     [announce, blocks, describeBlock, setPosition, speakAt],
   );
@@ -245,6 +245,25 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
     announce('Đang đọc mô tả hình');
   }, [announce, blocks, stopPlaying, supported]);
 
+  const speakText = useCallback(
+    (text: string) => {
+      if (!supported) {
+        announce(text);
+        return;
+      }
+      stopPlaying();
+      const token = tokenRef.current;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'vi-VN';
+      utterance.rate = speedRef.current;
+      utterance.onend = () => {
+        if (token === tokenRef.current) setWordRange(null);
+      };
+      window.speechSynthesis.speak(utterance);
+    },
+    [announce, stopPlaying, supported],
+  );
+
   useEffect(() => {
     return () => {
       tokenRef.current += 1;
@@ -273,6 +292,7 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
     stepSentence,
     changeSpeed,
     describeFigure,
+    speakText,
   };
 }
 

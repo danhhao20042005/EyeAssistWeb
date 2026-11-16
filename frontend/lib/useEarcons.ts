@@ -16,7 +16,13 @@ export function useEarcons() {
     [earcons, earconVolume],
   );
 
+  const startProcessing = useCallback(() => {
+    if (!earcons) return;
+    earconPlayer.setVolume(earconVolume);
+    earconPlayer.startProcessing();
+  }, [earcons, earconVolume]);
+
   const stopProcessing = useCallback(() => earconPlayer.stopProcessing(), []);
 
-  return { play, stopProcessing };
+  return { play, startProcessing, stopProcessing };
 }

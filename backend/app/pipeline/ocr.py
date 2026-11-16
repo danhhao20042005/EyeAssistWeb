@@ -12,6 +12,10 @@ from app.schemas import BBox, Word
 
 PSM = {"block": 6, "sparse": 11}
 
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
+
 WINDOWS_PATHS = [
     Path("C:/Program Files/Tesseract-OCR/tesseract.exe"),
     Path("C:/Program Files (x86)/Tesseract-OCR/tesseract.exe"),
