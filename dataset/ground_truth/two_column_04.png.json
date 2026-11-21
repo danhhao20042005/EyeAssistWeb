@@ -1,0 +1,47 @@
+{
+  "file_id": "two_column_04.png",
+  "document_type": "two_column",
+  "expected_reading_order_texts": [
+    "BÁO CÁO KHOA HỌC TRƯỜNG ĐẠI HỌC SƯ PHẠM HÀ NỘI - NĂM HỌC 2025 - 2026",
+    "ĐÁNH GIÁ TRẢI NGHIỆM NGƯỜI DÙNG KHIẾM THỊ VỚI HỆ THỐNG EYEASSIST",
+    "Tóm tắt: Khảo sát thực tế trên 45 người khiếm thị tại Hà Nội sử dụng EyeAssistWeb để đọc giáo trình và hóa đơn sinh hoạt. 95,5% người tham gia đánh giá cao tính năng cảnh báo độ tin cậy và thứ tự đọc chính xác.",
+    "1. Phương pháp khảo sát",
+    "Người tham gia thực hiện 3 tác vụ chính: Đọc văn bản bài giảng, tra cứu hóa đơn tiền điện nước và hỏi đáp biểu đồ doanh thu.",
+    "Hệ thống đo lường thời gian hoàn thành tác vụ (TCT), số lỗi hiểu nhầm thông tin và điểm số thang đo độ hài lòng SUS.",
+    "2. Phân tích kết quả",
+    "Điểm SUS trung bình đạt 86,4 điểm, thuộc nhóm chất lượng xuất sắc theo tiêu chuẩn đánh giá tương tác người - máy.",
+    "3. Phản hồi định tính",
+    "Người dùng đánh giá cao việc số tiền trong hóa đơn như 1.250.000 VNĐ được đọc chính xác thay vì bị nhầm ký tự O thành 0.",
+    "Khả năng phân tách cột chuẩn xác giúp sinh viên khiếm thị tự tin theo dõi bài giảng tài liệu khoa học tại giảng đường đại học.",
+    "4. Kiến nghị đề xuất",
+    "Tiếp tục cải thiện giao diện tương thích hoàn hảo với phím tắt bàn phím và bộ đọc màn hình NVDA, JAWS trên Windows.",
+    "Báo cáo Thực nghiệm Trợ năng Giáo dục - UET & ĐH Sư Phạm 2026 - Trang 84"
+  ],
+  "exact_numbers": [
+    "2025",
+    "2026",
+    "45",
+    "95,5%",
+    "1",
+    "3",
+    "2",
+    "86,4",
+    "3",
+    "1.250.000",
+    "0",
+    "4",
+    "2026",
+    "84"
+  ],
+  "key_facts": {
+    "title": "ĐÁNH GIÁ TRẢI NGHIỆM NGƯỜI DÙNG KHIẾM THỊ VỚI HỆ THỐNG EYEASSIST",
+    "left_headings": [
+      "1. Phương pháp khảo sát",
+      "2. Phân tích kết quả"
+    ],
+    "right_headings": [
+      "3. Phản hồi định tính",
+      "4. Kiến nghị đề xuất"
+    ]
+  }
+}

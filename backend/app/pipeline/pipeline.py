@@ -11,18 +11,28 @@ from app.pipeline.reading_order import reading_order
 from app.pipeline.table import TableExtractor
 from app.schemas import BBox, Block, DocumentResult, Page, Region, Word
 
-NUMBERING = re.compile(r"^(\d+(\.\d+)*[.)]?|[IVXL]+[.)]|[A-Z][.)])\s+\S")
+VIETNAMESE_HEADING_KEYWORDS = (
+    "chương", "bài", "phần", "mục", "nội dung", "tổng quan", "giới thiệu",
+    "mục tiêu", "kết luận", "kiến trúc", "báo cáo", "hóa đơn", "phiếu",
+    "bảng", "biểu đồ", "kế hoạch", "doanh thu", "tài liệu", "đại học", "học phần"
+)
+NUMBERING = re.compile(r"^(\d+(\.\d+)*[.)]?|[IVXL]+[.)]|[A-Z][.)]|Bài\s+\d+|Chương\s+\d+|Phần\s+\d+)\s+\S", re.IGNORECASE)
 
 
-def classify_text(text: str, region: Region) -> tuple[str, int | None]:
+def classify_text(text: str, region: Region, page_height: int | None = None) -> tuple[str, int | None]:
     rel = region.rel_height or 1.0
     lines = region.line_count or 1
-    short = len(text) <= 140
+    short = len(text) <= 180
     stripped = text.strip()
-    numbered = bool(NUMBERING.match(stripped)) and len(stripped) <= 100
+    lower = stripped.lower()
+    numbered = bool(NUMBERING.match(stripped)) and len(stripped) <= 120
     shouty = len(stripped) >= 4 and stripped.upper() == stripped and any(ch.isalpha() for ch in stripped)
-    if lines <= 2 and short and (rel >= 1.25 or numbered or shouty):
-        level = 1 if rel >= 1.5 else 2
+    is_keyword = any(lower.startswith(kw) for kw in VIETNAMESE_HEADING_KEYWORDS) and len(stripped) <= 120
+    is_top = (region.bbox.y < 0.28 * page_height) if page_height else False
+
+    keyword_heading = is_keyword and short and lines <= 3 and len(stripped) <= 110
+    if keyword_heading or (lines <= 2 and short and (rel >= 1.25 or numbered or shouty or (is_keyword and (rel >= 1.1 or is_top)) or (is_top and rel >= 1.15))):
+        level = 1 if (rel >= 1.4 or (is_top and rel >= 1.2)) else 2
         return "heading", level
     return "paragraph", None
 
@@ -96,6 +106,8 @@ class DocumentPipeline:
 
     def _process_page(self, page: PageImage) -> list[Block]:
         regions = self.layout.analyze(page.image)
+        if not page.words:
+            page.words = self.ocr.recognize(page.image, mode="sparse")
         blocks: list[Block] = []
         for number, region in enumerate(regions):
             block_id = f"p{page.index}-b{number}"
@@ -134,7 +146,7 @@ class DocumentPipeline:
         if not words:
             words = self.ocr.recognize(crop(page.image, region.bbox), mode="block")
         text = words_to_text(words)
-        kind, level = classify_text(text, region)
+        kind, level = classify_text(text, region, page.image.shape[0])
         return Block(
             id=block_id,
             type=kind,  # type: ignore[arg-type]

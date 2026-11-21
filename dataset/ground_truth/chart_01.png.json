@@ -1,0 +1,30 @@
+{
+  "file_id": "chart_01.png",
+  "document_type": "chart",
+  "expected_reading_order_texts": [
+    "TỐC ĐỘ XỬ LÝ CÁC PHIÊN BẢN PIPELINE OCR",
+    "Đơn vị tính: giây trên trang",
+    "3,10 ; 2,35 ; 1,85 ; 1,45",
+    "Phiên bản V1",
+    "Phiên bản V2",
+    "Phiên bản V3",
+    "Phiên bản V4",
+    "Các phiên bản thử nghiệm"
+  ],
+  "exact_numbers": [
+    "3,10",
+    "2,35",
+    "1,85",
+    "1,45"
+  ],
+  "key_facts": {
+    "chart_title": "TỐC ĐỘ XỬ LÝ CÁC PHIÊN BẢN PIPELINE OCR",
+    "unit": "Đơn vị tính: giây trên trang",
+    "data_points": {
+      "Phiên bản V1": "3,10",
+      "Phiên bản V2": "2,35",
+      "Phiên bản V3": "1,85",
+      "Phiên bản V4": "1,45"
+    }
+  }
+}

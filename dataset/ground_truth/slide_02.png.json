@@ -1,0 +1,26 @@
+{
+  "file_id": "slide_02.png",
+  "document_type": "slide",
+  "expected_reading_order_texts": [
+    "BÀI 2: KIẾN TRÚC MÔ HÌNH NHẬN DẠNG KÝ TỰ QUANG HỌC",
+    "Chuẩn hóa tiền xử lý: Lọc nhiễu ảnh, nhị phân hóa cục bộ thích nghi và nội suy tỷ lệ kích thước.",
+    "Mô hình OCR tiếng Việt: Sử dụng Tesseract 5.4 kết hợp tập từ điển ngôn ngữ chuẩn tiếng Việt vie.",
+    "Chuẩn hóa số liệu tự động: Sửa triệt để lỗi OCR nhầm lẫn O thành 0 và l hay I thành 1.",
+    "Độ chính xác dữ liệu số (Numerical Precision) sau chuẩn hóa đạt ngưỡng 95,8%.",
+    "EyeAssistWeb - Hệ thống Hỗ trợ Đọc Tiếp cận cho Người Khiếm thị - UET 2026"
+  ],
+  "exact_numbers": [
+    "2",
+    "5",
+    "4",
+    "0",
+    "1",
+    "95,8%",
+    "2026"
+  ],
+  "key_facts": {
+    "engine": "Tesseract 5.4 vie",
+    "correction": "Sửa lỗi O/o->0 và l/I->1",
+    "numerical_precision": "95,8%"
+  }
+}

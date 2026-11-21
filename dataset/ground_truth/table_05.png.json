@@ -1,0 +1,59 @@
+{
+  "file_id": "table_05.png",
+  "document_type": "table",
+  "expected_reading_order_texts": [
+    "BIÊN BẢN NGHIỆM THU HỆ THỐNG VÀ BÀN GIAO CÔNG NGHỆ",
+    "Dự án: Ứng dụng AI Hỗ trợ Tiếp cận Tài liệu cho Người Khiếm thị",
+    "Địa điểm bàn giao: Giảng đường 3G3 - Trường Đại học Công nghệ",
+    "STT | Hạng mục nghiệm thu | Số lượng | Đơn giá (VNĐ) | Giá trị (VNĐ) | Kết quả",
+    "1 | Hệ thống Backend FastAPI Pipeline OCR | 1 | 35.000.000 | 35.000.000 | Đạt 100%",
+    "2 | Giao diện Web Frontend Next.js Trợ năng | 1 | 28.000.000 | 28.000.000 | Đạt 100%",
+    "3 | Tập dữ liệu kiểm chuẩn 20 tài liệu tiếng Việt | 20 | 450.500 | 9.010.000 | Đạt 100%",
+    "4 | Bộ kiểm thử tự động hóa và script đánh giá | 1 | 12.750.000 | 12.750.000 | Đạt 100%",
+    "5 | Hồ sơ kỹ thuật và tài liệu hướng dẫn | 5 | 1.250.000 | 6.250.000 | Đạt 100%",
+    "Tổng giá trị hợp đồng nghiệm thu: 91.010.000 VNĐ",
+    "Độ chính xác tổng thể hệ thống: 98,5%",
+    "Kết luận: Đủ điều kiện đưa vào vận hành chính thức",
+    "Đại diện bên giao ký tên - Đại diện bên nhận ký tên - UET 2026"
+  ],
+  "exact_numbers": [
+    "3",
+    "1",
+    "1",
+    "35.000.000",
+    "35.000.000",
+    "100%",
+    "2",
+    "1",
+    "28.000.000",
+    "28.000.000",
+    "100%",
+    "3",
+    "20",
+    "20",
+    "450.500",
+    "9.010.000",
+    "100%",
+    "4",
+    "1",
+    "12.750.000",
+    "12.750.000",
+    "100%",
+    "5",
+    "5",
+    "1.250.000",
+    "6.250.000",
+    "100%",
+    "91.010.000",
+    "98,5%",
+    "2026"
+  ],
+  "key_facts": {
+    "invoice_title": "BIÊN BẢN NGHIỆM THU HỆ THỐNG VÀ BÀN GIAO CÔNG NGHỆ",
+    "totals": [
+      "Tổng giá trị hợp đồng nghiệm thu: 91.010.000 VNĐ",
+      "Độ chính xác tổng thể hệ thống: 98,5%",
+      "Kết luận: Đủ điều kiện đưa vào vận hành chính thức"
+    ]
+  }
+}

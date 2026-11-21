@@ -1,0 +1,34 @@
+{
+  "file_id": "chart_04.png",
+  "document_type": "chart",
+  "expected_reading_order_texts": [
+    "TỶ LỆ TRUY VẤN CÁC TÍNH NĂNG TRỢ NĂNG TRÊN EYEASSIST",
+    "Đơn vị tính: tỷ lệ phần trăm",
+    "76,4% ; 88,5% ; 65,2% ; 92,0% ; 84,8%",
+    "Hỏi đáp VQA",
+    "Đọc bảng hóa đơn",
+    "Nhận dạng biểu đồ",
+    "Đọc slide bài giảng",
+    "Đọc bài báo 2 cột",
+    "Mức độ quan tâm của người dùng"
+  ],
+  "exact_numbers": [
+    "76,4%",
+    "88,5%",
+    "65,2%",
+    "92,0%",
+    "84,8%",
+    "2"
+  ],
+  "key_facts": {
+    "chart_title": "TỶ LỆ TRUY VẤN CÁC TÍNH NĂNG TRỢ NĂNG TRÊN EYEASSIST",
+    "unit": "Đơn vị tính: tỷ lệ phần trăm",
+    "data_points": {
+      "Hỏi đáp VQA": "76,4%",
+      "Đọc bảng hóa đơn": "88,5%",
+      "Nhận dạng biểu đồ": "65,2%",
+      "Đọc slide bài giảng": "92,0%",
+      "Đọc bài báo 2 cột": "84,8%"
+    }
+  }
+}

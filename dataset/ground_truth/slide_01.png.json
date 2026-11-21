@@ -1,0 +1,27 @@
+{
+  "file_id": "slide_01.png",
+  "document_type": "slide",
+  "expected_reading_order_texts": [
+    "BÀI 1: TỔNG QUAN HỆ THỐNG TRỢ THÍNH VÀ THỊ GIÁC",
+    "Mục tiêu nghiên cứu: Xây dựng giải pháp phần mềm hỗ trợ người khiếm thị đọc văn bản tiếng Việt.",
+    "Tỷ lệ người dùng thử nghiệm hài lòng đạt 96,5% trong giai đoạn đánh giá quý 1 năm 2026.",
+    "Tốc độ xử lý trung bình toàn chu trình đạt dưới 2,25 giây cho mỗi trang tài liệu.",
+    "Tích hợp 3 khối chức năng: Nhận diện bố cục, bóc tách OCR tiếng Việt và mô hình hỏi đáp VQA.",
+    "EyeAssistWeb - Hệ thống Hỗ trợ Đọc Tiếp cận cho Người Khiếm thị - UET 2026"
+  ],
+  "exact_numbers": [
+    "1",
+    "96,5%",
+    "1",
+    "2026",
+    "2,25",
+    "3",
+    "2026"
+  ],
+  "key_facts": {
+    "course": "Hệ thống Trợ năng UET",
+    "target": "Hỗ trợ người khiếm thị",
+    "satisfaction_rate": "96,5%",
+    "target_latency": "< 2,25 giây/trang"
+  }
+}

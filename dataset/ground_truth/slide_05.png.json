@@ -1,0 +1,28 @@
+{
+  "file_id": "slide_05.png",
+  "document_type": "slide",
+  "expected_reading_order_texts": [
+    "BÀI 5: ĐÁNH GIÁ ĐỘ CHÍNH XÁC VÀ ĐỘ TRỄ HỆ THỐNG",
+    "Chỉ số lỗi ký tự CER kiểm soát ở mức 1,85% và chỉ số lỗi từ WER đạt dưới 3,92%.",
+    "Thời gian xử lý tài liệu thực tế đạt trung bình 1,68 giây/trang, đáp ứng tiêu chuẩn thời gian thực.",
+    "Tỷ lệ phân loại chính xác tiêu đề slide và khối biểu đồ đạt 97,5% trên tập kiểm thử.",
+    "Hệ thống đạt tiêu chuẩn thiết kế tiếp cận người khiếm thị quốc tế WCAG 2.1 cấp độ AA.",
+    "EyeAssistWeb - Hệ thống Hỗ trợ Đọc Tiếp cận cho Người Khiếm thị - UET 2026"
+  ],
+  "exact_numbers": [
+    "5",
+    "1,85%",
+    "3,92%",
+    "1,68",
+    "97,5%",
+    "2",
+    "1",
+    "2026"
+  ],
+  "key_facts": {
+    "cer": "1,85%",
+    "wer": "3,92%",
+    "avg_latency": "1,68 giây/trang",
+    "standard": "WCAG 2.1 AA"
+  }
+}

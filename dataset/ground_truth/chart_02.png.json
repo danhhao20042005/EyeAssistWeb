@@ -1,0 +1,34 @@
+{
+  "file_id": "chart_02.png",
+  "document_type": "chart",
+  "expected_reading_order_texts": [
+    "ĐỘ CHÍNH XÁC NHẬN DẠNG THEO TỪNG LOẠI TÀI LIỆU",
+    "Đơn vị tính: tỷ lệ phần trăm",
+    "98,5% ; 96,2% ; 95,8% ; 93,5% ; 99,1%",
+    "Bài giảng",
+    "Bài báo 2 cột",
+    "Bảng biểu",
+    "Biểu đồ",
+    "Hóa đơn",
+    "Các nhóm tài liệu kiểm thử"
+  ],
+  "exact_numbers": [
+    "98,5%",
+    "96,2%",
+    "95,8%",
+    "93,5%",
+    "99,1%",
+    "2"
+  ],
+  "key_facts": {
+    "chart_title": "ĐỘ CHÍNH XÁC NHẬN DẠNG THEO TỪNG LOẠI TÀI LIỆU",
+    "unit": "Đơn vị tính: tỷ lệ phần trăm",
+    "data_points": {
+      "Bài giảng": "98,5%",
+      "Bài báo 2 cột": "96,2%",
+      "Bảng biểu": "95,8%",
+      "Biểu đồ": "93,5%",
+      "Hóa đơn": "99,1%"
+    }
+  }
+}

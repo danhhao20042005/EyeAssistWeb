@@ -1,0 +1,49 @@
+{
+  "file_id": "two_column_02.png",
+  "document_type": "two_column",
+  "expected_reading_order_texts": [
+    "KỶ YẾU HỘI NGHỊ QUỐC GIA VỀ CÔNG NGHỆ THÔNG TIN VÀ TRÍ TUỆ NHÂN TẠO 2026",
+    "ỨNG DỤNG MÔ HÌNH VQA VÀ OCR ĐA THỂ THỨC TRONG TRỢ NĂNG THỊ GIÁC",
+    "Tóm tắt: Nghiên cứu đề xuất kiến trúc tích hợp giữa Tesseract OCR và mô hình thị giác ngôn ngữ lớn để trả lời câu hỏi trực quan trên tài liệu. Thử nghiệm ghi nhận độ tin cậy 88,5% trên 350 câu hỏi truy vấn hình ảnh biểu đồ.",
+    "1. Giới thiệu tổng quan",
+    "Người khiếm thị gặp rào cản lớn khi tiếp cận thông tin dạng đồ thị và sơ đồ hình vẽ. Các giải pháp OCR đơn thuần chỉ đọc được ký tự rời rạc mà không giải thích được ngữ nghĩa biểu đồ.",
+    "Hệ thống EyeAssist tích hợp phân hệ VQA cho phép người dùng hỏi đáp trực tiếp bằng giọng nói về nội dung hình vẽ và biểu đồ cột.",
+    "2. Kiến trúc giải thuật",
+    "Mô-đun layout phân vùng biểu đồ và gửi crop hình ảnh kèm câu hỏi tới mô hình AI với thời gian phản hồi dưới 40 giây.",
+    "3. Đánh giá độ tin cậy",
+    "Hệ thống xác định mức độ tin cậy (uncertainty level) thành 3 mức: confident (>=0,85), uncertain (0,60-0,85) và low (<0,60).",
+    "Độ chính xác bóc tách số liệu trên biểu đồ đạt 94,8%, đảm bảo người dùng không nhận phải thông tin ảo giác sai lệch.",
+    "4. Hướng phát triển",
+    "Nhóm tác giả tiếp tục tối ưu hóa mô hình cục bộ nhằm giảm độ trễ xử lý và nâng cao trải nghiệm giọng đọc tiếng Việt.",
+    "Hội nghị Quốc gia CNTT 2026 - Tiểu ban Trí tuệ Nhân tạo - Trang 42"
+  ],
+  "exact_numbers": [
+    "2026",
+    "88,5%",
+    "350",
+    "1",
+    "2",
+    "40",
+    "3",
+    "3",
+    "0,85",
+    "0,60",
+    "0,85",
+    "0,60",
+    "94,8%",
+    "4",
+    "2026",
+    "42"
+  ],
+  "key_facts": {
+    "title": "ỨNG DỤNG MÔ HÌNH VQA VÀ OCR ĐA THỂ THỨC TRONG TRỢ NĂNG THỊ GIÁC",
+    "left_headings": [
+      "1. Giới thiệu tổng quan",
+      "2. Kiến trúc giải thuật"
+    ],
+    "right_headings": [
+      "3. Đánh giá độ tin cậy",
+      "4. Hướng phát triển"
+    ]
+  }
+}

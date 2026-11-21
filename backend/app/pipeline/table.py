@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import re
 
 import cv2
 import numpy as np
@@ -8,6 +9,46 @@ from app.pipeline.layout import binarize
 from app.pipeline.lines import line_positions
 from app.pipeline.ocr import mean_confidence
 from app.schemas import Word
+
+
+def normalize_vietnamese_number(text: str) -> str:
+    if not text:
+        return ""
+
+    s = text.replace("\u00a0", " ").strip()
+    s = re.sub(r"(?<=\d)\s*([.,])\s*(?=\d)", r"\1", s)
+    s = re.sub(r"(?<=\d)\s*%", "%", s)
+    s = re.sub(r"(\d+)\s*(tỷ|triệu|nghìn|đồng|đ|vnđ|usd|k)\b", r"\1 \2", s, flags=re.IGNORECASE)
+
+    def fix_token(m: re.Match[str]) -> str:
+        tok = m.group(0)
+        has_digit = any(c.isdigit() for c in tok)
+        has_num_punct = bool(re.search(r"[.,%]", tok))
+        if not (has_digit or (has_num_punct and len(tok) >= 2)):
+            return tok
+
+        allowed = set("0123456789OolI|.,%+-")
+        if not all(c in allowed for c in tok):
+            sub = re.sub(r"(?<=\d)[Oo](?=\d|[\.,%]|(\s|$))", "0", tok)
+            sub = re.sub(r"(?<=[\.,%])[Oo](?=\d)", "0", sub)
+            sub = re.sub(r"(?<=\d)[lI|](?=\d|[\.,%]|(\s|$))", "1", sub)
+            sub = re.sub(r"(?<=[\.,%])[lI|](?=\d)", "1", sub)
+            return sub
+
+        res = []
+        for c in tok:
+            if c in "Oo":
+                res.append("0")
+            elif c in "lI|":
+                res.append("1")
+            else:
+                res.append(c)
+        return "".join(res)
+
+    pattern = re.compile(r"\b[0-9OoIl|.,%+-]+\b")
+    s = pattern.sub(fix_token, s)
+    s = re.sub(r"(\d+)\s*(tỷ|triệu|nghìn|đồng|đ|vnđ|usd|k)\b", r"\1 \2", s, flags=re.IGNORECASE)
+    return s
 
 
 @dataclass
@@ -42,7 +83,8 @@ def _cell_text(words: list[Word]) -> str:
             lines[-1].append(word)
         else:
             lines.append([word])
-    return " ".join(" ".join(w.text for w in sorted(line, key=lambda w: w.bbox.x)) for line in lines).strip()
+    raw = " ".join(" ".join(w.text for w in sorted(line, key=lambda w: w.bbox.x)) for line in lines).strip()
+    return normalize_vietnamese_number(raw)
 
 
 def grid_from_words(words: list[Word]) -> list[list[str]]:

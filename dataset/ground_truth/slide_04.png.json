@@ -1,0 +1,25 @@
+{
+  "file_id": "slide_04.png",
+  "document_type": "slide",
+  "expected_reading_order_texts": [
+    "BÀI 4: HỎI ĐÁP TRỰC QUAN ĐA THỂ THỨC DỰA TRÊN AI",
+    "Phân hệ VQA ứng dụng mô hình ngôn ngữ lớn đa phương thức Google Gemini 2.5 Flash.",
+    "Thời gian phản hồi truy vấn câu hỏi bằng hình ảnh được kiểm soát trong vòng 40 giây.",
+    "Tự động trích xuất vùng bằng chứng (Evidence Region) với độ tin cậy tự tin vượt 85%.",
+    "Cung cấp thông tin trợ thính chi tiết qua bộ chuyển đổi văn bản thành giọng nói tiếng Việt.",
+    "EyeAssistWeb - Hệ thống Hỗ trợ Đọc Tiếp cận cho Người Khiếm thị - UET 2026"
+  ],
+  "exact_numbers": [
+    "4",
+    "2",
+    "5",
+    "40",
+    "85%",
+    "2026"
+  ],
+  "key_facts": {
+    "vqa_model": "Google Gemini 2.5 Flash",
+    "timeout": "40 giây",
+    "confident_threshold": "85%"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "file_id": "two_column_03.png",
+  "document_type": "two_column",
+  "expected_reading_order_texts": [
+    "CHUYÊN SAN CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG - ĐẠI HỌC BÁCH KHOA 2026",
+    "TỐI ƯU HÓA THUẬT TOÁN XY-CUT CHO TÀI LIỆU TIẾNG VIỆT ĐA CỘT",
+    "Tóm tắt: Thuật toán XY-Cut truyền thống thường thất bại khi khoảng cách đoạn văn bản lớn hơn khoảng cách rãnh cột. Bài báo đề xuất cải tiến ưu tiên phân tách cột trước khi cắt dòng hàng ngang.",
+    "1. Hạn chế của XY-Cut cổ điển",
+    "Khi tài liệu có khoảng cách giữa các đoạn văn trong cùng một cột lớn hơn khe hở giữa 2 cột, giải thuật cổ điển sẽ cắt nhầm theo phương ngang.",
+    "Hệ quả là thứ tự đọc bị xáo trộn luân phiên giữa cột trái và cột phải, khiến thông điệp văn bản trở nên vô nghĩa.",
+    "2. Giải thuật cải tiến Column-First",
+    "Bằng cách xác định khối tiêu đề bao quát đầu trang và chia rãnh cột theo trục X trước, thuật toán luôn đọc hết cột 1 rồi mới sang cột 2.",
+    "3. Kết quả đối sánh",
+    "Trên tập dữ liệu 100 tài liệu bài báo 2 cột, giải pháp đạt độ chính xác thứ tự đọc 100%, khắc phục hoàn toàn hiện tượng nhảy cột.",
+    "Tốc độ phân tích trung bình chỉ mất 0,12 giây cho bước Layout, không làm ảnh hưởng đến tổng thời gian của toàn pipeline.",
+    "4. Đánh giá chung",
+    "Cải tiến có thể áp dụng rộng rãi cho các hệ thống thư viện số và ứng dụng đọc sách điện tử tiếp cận tại Việt Nam.",
+    "Tạp chí Khoa học & Công nghệ - Số Chuyên đề Xử lý Tài liệu 2026 - Trang 73"
+  ],
+  "exact_numbers": [
+    "2026",
+    "1",
+    "2",
+    "2",
+    "1",
+    "2",
+    "3",
+    "100",
+    "2",
+    "100%",
+    "0,12",
+    "4",
+    "2026",
+    "73"
+  ],
+  "key_facts": {
+    "title": "TỐI ƯU HÓA THUẬT TOÁN XY-CUT CHO TÀI LIỆU TIẾNG VIỆT ĐA CỘT",
+    "left_headings": [
+      "1. Hạn chế của XY-Cut cổ điển",
+      "2. Giải thuật cải tiến Column-First"
+    ],
+    "right_headings": [
+      "3. Kết quả đối sánh",
+      "4. Đánh giá chung"
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "file_id": "two_column_01.png",
+  "document_type": "two_column",
+  "expected_reading_order_texts": [
+    "TẠP CHÍ KHOA HỌC VÀ CÔNG NGHỆ - ĐHQGHN, TẬP 40, SỐ 1, NĂM 2026",
+    "NGHIÊN CỨU PHÁT TRIỂN HỆ THỐNG TRỢ GIÚP TIẾP CẬN TÀI LIỆU SỐ CHO NGƯỜI KHIẾM THỊ",
+    "Tóm tắt: Bài báo trình bày giải pháp kết hợp phân đoạn bố cục hình thái học và nhận dạng ký tự quang học nhằm hỗ trợ người khiếm thị đọc tài liệu số. Kết quả thử nghiệm trên 200 tài liệu thực tế cho thấy độ chính xác nhận dạng đạt 98,4% với độ trễ 1,75 giây mỗi trang.",
+    "1. Đặt vấn đề và Mục tiêu",
+    "Hiện nay tại Việt Nam có khoảng 2.000.000 người khiếm thị có nhu cầu học tập và làm việc. Tuy nhiên tài liệu giáo trình dạng số thường có bố cục phức tạp nhiều cột khiến các ứng dụng đọc màn hình truyền thống hay bị lỗi đọc nhảy dòng ngang.",
+    "Mục tiêu của nghiên cứu là xây dựng pipeline bóc tách văn bản chuẩn hóa, tự động nhận diện thứ tự đọc từ tiêu đề rộng đến cột trái rồi sang cột phải.",
+    "2. Phương pháp tiếp cận",
+    "Chúng tôi áp dụng kỹ thuật Classical CV với toán tử mở đóng hình thái để phân lập bảng biểu và biểu đồ trước khi gom cụm các khối chữ.",
+    "3. Kết quả thực nghiệm",
+    "Thử nghiệm trên 15.000 từ tiếng Việt cho thấy giải pháp khắc phục 100% lỗi đọc nhảy cột. Tỷ lệ chính xác nhận diện chữ số Numerical Precision đạt 96,2% nhờ bộ chuẩn hóa ký tự nhầm lẫn.",
+    "Thời gian xử lý trung bình ghi nhận ở mức 1,82 giây/trang, hoàn toàn đáp ứng ngưỡng tương tác người dùng dưới 2,5 giây.",
+    "4. Kết luận",
+    "Hệ thống EyeAssistWeb đã chứng minh tính khả thi cao và mang lại giá trị nhân văn sâu sắc cho cộng đồng người yếu thế.",
+    "Đại học Quốc gia Hà Nội - Nhóm Nghiên cứu Trợ năng UET - Trang 101"
+  ],
+  "exact_numbers": [
+    "40",
+    "1",
+    "2026",
+    "200",
+    "98,4%",
+    "1,75",
+    "1",
+    "2.000.000",
+    "2",
+    "3",
+    "15.000",
+    "100%",
+    "96,2%",
+    "1,82",
+    "2,5",
+    "4",
+    "101"
+  ],
+  "key_facts": {
+    "title": "NGHIÊN CỨU PHÁT TRIỂN HỆ THỐNG TRỢ GIÚP TIẾP CẬN TÀI LIỆU SỐ CHO NGƯỜI KHIẾM THỊ",
+    "left_headings": [
+      "1. Đặt vấn đề và Mục tiêu",
+      "2. Phương pháp tiếp cận"
+    ],
+    "right_headings": [
+      "3. Kết quả thực nghiệm",
+      "4. Kết luận"
+    ]
+  }
+}

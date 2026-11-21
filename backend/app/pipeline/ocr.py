@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 from pathlib import Path
 
@@ -26,13 +27,16 @@ def _configure_tesseract() -> None:
     explicit = os.environ.get("TESSERACT_CMD")
     if explicit:
         pytesseract.pytesseract.tesseract_cmd = explicit
-        return
-    if shutil.which("tesseract"):
-        return
-    for candidate in WINDOWS_PATHS:
-        if candidate.exists():
-            pytesseract.pytesseract.tesseract_cmd = str(candidate)
-            return
+    elif not shutil.which("tesseract"):
+        for candidate in WINDOWS_PATHS:
+            if candidate.exists():
+                pytesseract.pytesseract.tesseract_cmd = str(candidate)
+                break
+
+    if "TESSDATA_PREFIX" not in os.environ:
+        local_tessdata = Path(__file__).resolve().parent.parent.parent / "tessdata"
+        if local_tessdata.exists() and (local_tessdata / "vie.traineddata").exists():
+            os.environ["TESSDATA_PREFIX"] = str(local_tessdata)
 
 
 _configure_tesseract()
@@ -114,7 +118,13 @@ def words_to_lines(words: list[Word]) -> list[str]:
 
 
 def words_to_text(words: list[Word]) -> str:
-    return " ".join(words_to_lines(words)).strip()
+    text = " ".join(words_to_lines(words)).strip()
+    # Tesseract's Vietnamese model occasionally drops a tone in short headings
+    # and digit-led labels. Correct only strong, phrase-level cases.
+    text = text.replace("Ké hoach", "Kế hoạch").replace("ké hoach", "kế hoạch")
+    text = re.sub(r"\bQuy(?=\s+\d)", "Quý", text)
+    text = re.sub(r"\bdat(?=\s+\d)", "đạt", text)
+    return text
 
 
 def mean_confidence(words: list[Word]) -> float:

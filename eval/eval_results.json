@@ -1,0 +1,266 @@
+{
+  "overall_summary": {
+    "count": 20,
+    "avg_cer": 17.51,
+    "avg_wer": 30.06,
+    "avg_num_prec": 88.93,
+    "avg_order_acc": 94.68,
+    "avg_latency": 0.973
+  },
+  "category_summary": {
+    "slide": {
+      "count": 5,
+      "avg_cer": 1.58,
+      "avg_wer": 6.12,
+      "avg_num_prec": 100.0,
+      "avg_order_acc": 100.0,
+      "avg_latency": 0.705
+    },
+    "two_column": {
+      "count": 5,
+      "avg_cer": 1.14,
+      "avg_wer": 4.64,
+      "avg_num_prec": 100.0,
+      "avg_order_acc": 100.0,
+      "avg_latency": 1.314
+    },
+    "table": {
+      "count": 5,
+      "avg_cer": 32.93,
+      "avg_wer": 56.02,
+      "avg_num_prec": 55.72,
+      "avg_order_acc": 93.33,
+      "avg_latency": 1.113
+    },
+    "chart": {
+      "count": 5,
+      "avg_cer": 34.4,
+      "avg_wer": 53.47,
+      "avg_num_prec": 100.0,
+      "avg_order_acc": 85.4,
+      "avg_latency": 0.76
+    }
+  },
+  "details_by_file": [
+    {
+      "file_id": "chart_01.png",
+      "document_type": "chart",
+      "cer_percent": 11.11,
+      "wer_percent": 33.33,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 55.56,
+      "latency_seconds": 0.591,
+      "block_count": 9,
+      "exact_numbers_count": 4
+    },
+    {
+      "file_id": "chart_02.png",
+      "document_type": "chart",
+      "cer_percent": 27.89,
+      "wer_percent": 38.64,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.747,
+      "block_count": 14,
+      "exact_numbers_count": 6
+    },
+    {
+      "file_id": "chart_03.png",
+      "document_type": "chart",
+      "cer_percent": 75.13,
+      "wer_percent": 100.0,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.858,
+      "block_count": 16,
+      "exact_numbers_count": 12
+    },
+    {
+      "file_id": "chart_04.png",
+      "document_type": "chart",
+      "cer_percent": 45.96,
+      "wer_percent": 70.37,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 71.43,
+      "latency_seconds": 0.814,
+      "block_count": 14,
+      "exact_numbers_count": 6
+    },
+    {
+      "file_id": "chart_05.png",
+      "document_type": "chart",
+      "cer_percent": 11.92,
+      "wer_percent": 25.0,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.792,
+      "block_count": 9,
+      "exact_numbers_count": 8
+    },
+    {
+      "file_id": "slide_01.png",
+      "document_type": "slide",
+      "cer_percent": 0.83,
+      "wer_percent": 3.81,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.699,
+      "block_count": 7,
+      "exact_numbers_count": 7
+    },
+    {
+      "file_id": "slide_02.png",
+      "document_type": "slide",
+      "cer_percent": 3.1,
+      "wer_percent": 11.32,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.724,
+      "block_count": 7,
+      "exact_numbers_count": 7
+    },
+    {
+      "file_id": "slide_03.png",
+      "document_type": "slide",
+      "cer_percent": 1.85,
+      "wer_percent": 5.66,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.715,
+      "block_count": 7,
+      "exact_numbers_count": 5
+    },
+    {
+      "file_id": "slide_04.png",
+      "document_type": "slide",
+      "cer_percent": 1.28,
+      "wer_percent": 6.06,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.725,
+      "block_count": 7,
+      "exact_numbers_count": 6
+    },
+    {
+      "file_id": "slide_05.png",
+      "document_type": "slide",
+      "cer_percent": 0.85,
+      "wer_percent": 3.77,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 0.664,
+      "block_count": 7,
+      "exact_numbers_count": 8
+    },
+    {
+      "file_id": "table_01.png",
+      "document_type": "table",
+      "cer_percent": 32.1,
+      "wer_percent": 58.96,
+      "numerical_precision_percent": 60.0,
+      "reading_order_accuracy_percent": 91.43,
+      "latency_seconds": 1.029,
+      "block_count": 8,
+      "exact_numbers_count": 35
+    },
+    {
+      "file_id": "table_02.png",
+      "document_type": "table",
+      "cer_percent": 30.89,
+      "wer_percent": 50.53,
+      "numerical_precision_percent": 66.67,
+      "reading_order_accuracy_percent": 96.0,
+      "latency_seconds": 1.116,
+      "block_count": 7,
+      "exact_numbers_count": 33
+    },
+    {
+      "file_id": "table_03.png",
+      "document_type": "table",
+      "cer_percent": 38.54,
+      "wer_percent": 60.87,
+      "numerical_precision_percent": 46.67,
+      "reading_order_accuracy_percent": 93.75,
+      "latency_seconds": 1.094,
+      "block_count": 7,
+      "exact_numbers_count": 30
+    },
+    {
+      "file_id": "table_04.png",
+      "document_type": "table",
+      "cer_percent": 33.33,
+      "wer_percent": 58.76,
+      "numerical_precision_percent": 48.57,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 1.171,
+      "block_count": 8,
+      "exact_numbers_count": 35
+    },
+    {
+      "file_id": "table_05.png",
+      "document_type": "table",
+      "cer_percent": 29.77,
+      "wer_percent": 51.0,
+      "numerical_precision_percent": 56.67,
+      "reading_order_accuracy_percent": 85.45,
+      "latency_seconds": 1.156,
+      "block_count": 8,
+      "exact_numbers_count": 30
+    },
+    {
+      "file_id": "two_column_01.png",
+      "document_type": "two_column",
+      "cer_percent": 0.99,
+      "wer_percent": 4.26,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 1.446,
+      "block_count": 20,
+      "exact_numbers_count": 17
+    },
+    {
+      "file_id": "two_column_02.png",
+      "document_type": "two_column",
+      "cer_percent": 1.0,
+      "wer_percent": 3.86,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 1.342,
+      "block_count": 17,
+      "exact_numbers_count": 16
+    },
+    {
+      "file_id": "two_column_03.png",
+      "document_type": "two_column",
+      "cer_percent": 1.74,
+      "wer_percent": 7.61,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 1.325,
+      "block_count": 19,
+      "exact_numbers_count": 14
+    },
+    {
+      "file_id": "two_column_04.png",
+      "document_type": "two_column",
+      "cer_percent": 0.73,
+      "wer_percent": 2.99,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 1.212,
+      "block_count": 20,
+      "exact_numbers_count": 14
+    },
+    {
+      "file_id": "two_column_05.png",
+      "document_type": "two_column",
+      "cer_percent": 1.23,
+      "wer_percent": 4.46,
+      "numerical_precision_percent": 100.0,
+      "reading_order_accuracy_percent": 100.0,
+      "latency_seconds": 1.247,
+      "block_count": 19,
+      "exact_numbers_count": 17
+    }
+  ]
+}

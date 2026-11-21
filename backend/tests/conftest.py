@@ -1,3 +1,4 @@
+from pathlib import Path
 import shutil
 
 import pytest
@@ -6,11 +7,13 @@ from tests import synth
 
 
 def _has_vie() -> bool:
-    if shutil.which("tesseract") is None:
-        return False
     try:
+        from app.pipeline.ocr import _configure_tesseract
+        _configure_tesseract()
         import pytesseract
-
+        cmd = getattr(pytesseract.pytesseract, "tesseract_cmd", "tesseract")
+        if shutil.which(cmd) is None and not Path(cmd).exists():
+            return False
         return "vie" in pytesseract.get_languages(config="")
     except Exception:
         return False

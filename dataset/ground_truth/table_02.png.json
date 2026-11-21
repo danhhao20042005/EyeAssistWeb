@@ -1,0 +1,62 @@
+{
+  "file_id": "table_02.png",
+  "document_type": "table",
+  "expected_reading_order_texts": [
+    "BẢNG KÊ CHI PHÍ VẬN HÀNH VÀ NGHIÊN CỨU DỰ ÁN 2026",
+    "Đơn vị thực hiện: Phòng Thí nghiệm Tương tác Người - Máy UET",
+    "Nguồn kinh phí: Quỹ Phát triển Khoa học & Công nghệ Quốc gia (NAFOSTED)",
+    "STT | Hạng mục nghiên cứu | Định mức | Đơn giá (VNĐ) | Tổng chi (VNĐ) | Tỷ lệ",
+    "1 | Thu thập và gán nhãn 5.000 ảnh tài liệu | 50 | 450.500 | 22.525.000 | 12,75%",
+    "2 | Thuê máy chủ tính toán GPU huấn luyện OCR | 6 | 12.500.000 | 75.000.000 | 42,50%",
+    "3 | Tổ chức kiểm thử người dùng khiếm thị | 45 | 1.250.000 | 56.250.000 | 31,85%",
+    "4 | Hiệu chuẩn và tối ưu hóa latency pipeline | 1 | 18.500.000 | 18.500.000 | 10,48%",
+    "5 | Văn phòng phẩm và tài liệu hướng dẫn âm thanh | 100 | 45.000 | 4.500.000 | 2,42%",
+    "Tổng chi phí dự án: 176.775.000 VNĐ",
+    "Tỷ lệ giải ngân hoàn thành: 98,5%",
+    "Kinh phí dự phòng còn lại: 3.225.000 VNĐ",
+    "Chủ nhiệm đề tài ký duyệt - Kế toán trưởng ký duyệt - Ngày 21/11/2026"
+  ],
+  "exact_numbers": [
+    "2026",
+    "1",
+    "5.000",
+    "50",
+    "450.500",
+    "22.525.000",
+    "12,75%",
+    "2",
+    "6",
+    "12.500.000",
+    "75.000.000",
+    "42,50%",
+    "3",
+    "45",
+    "1.250.000",
+    "56.250.000",
+    "31,85%",
+    "4",
+    "1",
+    "18.500.000",
+    "18.500.000",
+    "10,48%",
+    "5",
+    "100",
+    "45.000",
+    "4.500.000",
+    "2,42%",
+    "176.775.000",
+    "98,5%",
+    "3.225.000",
+    "21",
+    "11",
+    "2026"
+  ],
+  "key_facts": {
+    "invoice_title": "BẢNG KÊ CHI PHÍ VẬN HÀNH VÀ NGHIÊN CỨU DỰ ÁN 2026",
+    "totals": [
+      "Tổng chi phí dự án: 176.775.000 VNĐ",
+      "Tỷ lệ giải ngân hoàn thành: 98,5%",
+      "Kinh phí dự phòng còn lại: 3.225.000 VNĐ"
+    ]
+  }
+}

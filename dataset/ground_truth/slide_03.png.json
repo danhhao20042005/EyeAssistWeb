@@ -1,0 +1,24 @@
+{
+  "file_id": "slide_03.png",
+  "document_type": "slide",
+  "expected_reading_order_texts": [
+    "BÀI 3: PHÂN TÍCH BỐ CỤC VÀ XÁC ĐỊNH THỨ TỰ ĐỌC TÀI LIỆU",
+    "Phân đoạn hình thái học: Phát hiện chính xác bảng biểu, biểu đồ hình ảnh và các đoạn văn bản.",
+    "Sửa triệt để lỗi đọc nhảy dòng ngang qua 2 cột thường gặp trên các bài báo khoa học.",
+    "Nguyên tắc thứ tự đọc chuẩn: Tiêu đề rộng đầu trang -> Cột trái -> Cột phải -> Chú thích cuối.",
+    "Độ chính xác thứ tự đọc (Reading Order Accuracy) đạt mức 98,2% trên 500 trang mẫu.",
+    "EyeAssistWeb - Hệ thống Hỗ trợ Đọc Tiếp cận cho Người Khiếm thị - UET 2026"
+  ],
+  "exact_numbers": [
+    "3",
+    "2",
+    "98,2%",
+    "500",
+    "2026"
+  ],
+  "key_facts": {
+    "layout_analysis": "Classical CV Morphological",
+    "reading_rule": "Heading -> Left Col -> Right Col -> Footer",
+    "order_accuracy": "98,2%"
+  }
+}

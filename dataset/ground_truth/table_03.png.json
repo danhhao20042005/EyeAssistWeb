@@ -1,0 +1,59 @@
+{
+  "file_id": "table_03.png",
+  "document_type": "table",
+  "expected_reading_order_texts": [
+    "BẢNG BÁO GIÁ THIẾT BỊ VÀ GIẢI PHÁP TRỢ NĂNG",
+    "Kính gửi: Trung tâm Hỗ trợ Người khuyết tật Hà Nội",
+    "Báo giá có giá trị trong vòng 30 ngày kể từ ngày phát hành",
+    "STT | Danh mục giải pháp tiếp cận | SL | Đơn giá (VNĐ) | Thành tiền (VNĐ) | CK",
+    "1 | Bộ máy tính Mini PC cài sẵn EyeAssist | 3 | 8.500.000 | 25.500.000 | 5,0%",
+    "2 | Màn hình chữ nổi Braille điện tử 40 ô | 2 | 24.500.000 | 49.000.000 | 10,0%",
+    "3 | Tai nghe dẫn truyền xương Bone Conduction | 15 | 1.250.000 | 18.750.000 | 8,0%",
+    "4 | Bàn phím trợ năng ký tự lớn tương phản cao | 10 | 450.500 | 4.505.000 | 5,0%",
+    "5 | Khóa đào tạo kỹ năng đọc tài liệu số | 1 | 12.000.000 | 12.000.000 | 15,0%",
+    "Tổng giá trị danh mục: 109.755.000 VNĐ",
+    "Tổng chiết khấu thương mại: 8.925.000 VNĐ",
+    "Giá trị thanh toán sau chiết khấu: 100.830.000 VNĐ",
+    "Đại diện kinh doanh ký tên - Giám đốc công ty đóng dấu"
+  ],
+  "exact_numbers": [
+    "30",
+    "1",
+    "3",
+    "8.500.000",
+    "25.500.000",
+    "5,0%",
+    "2",
+    "40",
+    "2",
+    "24.500.000",
+    "49.000.000",
+    "10,0%",
+    "3",
+    "15",
+    "1.250.000",
+    "18.750.000",
+    "8,0%",
+    "4",
+    "10",
+    "450.500",
+    "4.505.000",
+    "5,0%",
+    "5",
+    "1",
+    "12.000.000",
+    "12.000.000",
+    "15,0%",
+    "109.755.000",
+    "8.925.000",
+    "100.830.000"
+  ],
+  "key_facts": {
+    "invoice_title": "BẢNG BÁO GIÁ THIẾT BỊ VÀ GIẢI PHÁP TRỢ NĂNG",
+    "totals": [
+      "Tổng giá trị danh mục: 109.755.000 VNĐ",
+      "Tổng chiết khấu thương mại: 8.925.000 VNĐ",
+      "Giá trị thanh toán sau chiết khấu: 100.830.000 VNĐ"
+    ]
+  }
+}

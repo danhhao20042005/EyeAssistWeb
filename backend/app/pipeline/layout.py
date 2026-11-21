@@ -93,8 +93,8 @@ class ClassicalLayoutAnalyzer:
             x, y, w, h = cv2.boundingRect(contour)
             if w < width * 0.15 or h < height * 0.025:
                 continue
-            h_lines = line_positions(horiz[y : y + h, x : x + w], axis=1, min_fraction=0.5)
-            v_lines = line_positions(vert[y : y + h, x : x + w], axis=0, min_fraction=0.5)
+            h_lines = line_positions(horiz[y : y + h, x : x + w], axis=1, min_fraction=0.35)
+            v_lines = line_positions(vert[y : y + h, x : x + w], axis=0, min_fraction=0.35)
             if len(h_lines) >= 2 and len(v_lines) >= 2:
                 boxes.append((x, y, w, h))
         return _merge_boxes(boxes)
@@ -107,7 +107,7 @@ class ClassicalLayoutAnalyzer:
         pad = max(4, int(0.008 * height))
         for i in range(1, count):
             x, y, w, h, area = stats[i]
-            if w * h < 0.012 * page_area or w < 0.08 * width or h < 0.05 * height:
+            if w * h < 0.010 * page_area or w < 0.08 * width or h < 0.05 * height:
                 continue
             boxes.append((max(0, x - pad), max(0, y - pad), min(width, w + 2 * pad), min(height, h + 2 * pad)))
         return _merge_boxes(boxes)
@@ -130,7 +130,7 @@ class ClassicalLayoutAnalyzer:
             return []
         med = float(np.median(heights))
         kx = max(5, int(med * 2.0))
-        ky = max(3, int(med * 1.25))
+        ky = max(3, int(med * 0.9))
         joined = cv2.dilate(ink, cv2.getStructuringElement(cv2.MORPH_RECT, (kx, max(1, int(med * 0.25)))))
         joined = cv2.dilate(joined, cv2.getStructuringElement(cv2.MORPH_RECT, (1, ky)))
         contours, _ = cv2.findContours(joined, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)

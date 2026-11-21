@@ -1,0 +1,50 @@
+{
+  "file_id": "two_column_05.png",
+  "document_type": "two_column",
+  "expected_reading_order_texts": [
+    "HỘI THẢO CHUYỂN ĐỔI SỐ TRONG GIÁO DỤC ĐẠI HỌC - BỘ GIÁO DỤC VÀ ĐÀO TẠO 2026",
+    "TIÊU CHUẨN TIẾP CẬN KỸ THUẬT SỐ CHO TÀI LIỆU HỌC TẬP TRỰC TUYẾN",
+    "Tóm tắt: Đề xuất bộ khung tiêu chuẩn tiếp cận kỹ thuật số cho cổng học liệu trực tuyến các trường đại học Việt Nam, ứng dụng công nghệ OCR và VQA hỗ trợ sinh viên khuyết tật học tập bình đẳng.",
+    "1. Thực trạng tiếp cận số",
+    "Hơn 70% tài liệu số hiện nay ở dạng PDF quét không có lớp văn bản ẩn, gây cô lập hoàn toàn sinh viên khiếm thị trong học tập.",
+    "Việc chuyển đổi tự động bằng pipeline EyeAssist giúp số hóa 1.000 trang sách mỗi ngày với chi phí vận hành cực kỳ tiết kiệm.",
+    "2. Yêu cầu kỹ thuật cốt lõi",
+    "Pipeline phải đáp ứng: Lỗi ký tự CER < 2,5%, Numerical Precision > 92% và bảo toàn chính xác cấu trúc bảng biểu hóa đơn.",
+    "3. Kết quả triển khai thử nghiệm",
+    "Tại Đại học Quốc gia Hà Nội, hơn 50 bộ giáo trình ngành CNTT đã được chuyển đổi thành công với độ chính xác đạt 98,6%.",
+    "Thời gian trung bình để xử lý 1 trang giáo trình chuẩn chỉ mất 1,72 giây, sẵn sàng phục vụ tra cứu tức thời.",
+    "4. Lộ trình nhân rộng",
+    "Dự án hướng tới cung cấp API miễn phí cho tất cả các viện trường đại học trên toàn quốc từ tháng 9 năm 2026.",
+    "Kỷ yếu Hội thảo Chuyển đổi số Giáo dục 2026 - Bộ GD&ĐT - Trang 95"
+  ],
+  "exact_numbers": [
+    "2026",
+    "1",
+    "70%",
+    "1.000",
+    "2",
+    "2,5%",
+    "92%",
+    "3",
+    "50",
+    "98,6%",
+    "1",
+    "1,72",
+    "4",
+    "9",
+    "2026",
+    "2026",
+    "95"
+  ],
+  "key_facts": {
+    "title": "TIÊU CHUẨN TIẾP CẬN KỸ THUẬT SỐ CHO TÀI LIỆU HỌC TẬP TRỰC TUYẾN",
+    "left_headings": [
+      "1. Thực trạng tiếp cận số",
+      "2. Yêu cầu kỹ thuật cốt lõi"
+    ],
+    "right_headings": [
+      "3. Kết quả triển khai thử nghiệm",
+      "4. Lộ trình nhân rộng"
+    ]
+  }
+}
