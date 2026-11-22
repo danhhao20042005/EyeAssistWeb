@@ -1,6 +1,7 @@
 import asyncio
 import io
 import json
+import logging
 from typing import Any
 
 from google import genai
@@ -11,11 +12,16 @@ from pydantic import BaseModel, Field
 from app.pipeline.interfaces import VQAError, VQATimeout, VQAUnavailable
 from app.schemas import EvidenceRegion, VQAResult
 from app.vqa.confidence import calibrate, reason_texts, uncertainty_level
+from app.vqa.grounding import ungrounded_numbers
+from app.vqa.image_quality import quality_reasons
 from app.vqa.prompt import SYSTEM_PROMPT, build_user_prompt
+
+log = logging.getLogger("eyeassist.vqa")
 
 RETRY_CODES = {429, 500, 503, 504}
 ALLOWED_REASONS = {
     "axis_label_blurry",
+    "axis_label_missing",
     "value_hidden",
     "low_resolution",
     "text_too_small",
@@ -33,6 +39,7 @@ class GeminiAnswer(BaseModel):
     can_answer: bool = True
     self_confidence: float = Field(ge=0.0, le=1.0)
     reasons: list[str] = Field(default_factory=list)
+    values: list[str] = Field(default_factory=list)  # mọi số nêu trong answer, chép đúng như trong ảnh
     evidence: str | None = None
     evidence_box: list[int] | None = None
 
@@ -86,6 +93,13 @@ def parse_answer(response: Any) -> GeminiAnswer:
         raise VQAError("Gemini trả về dữ liệu không đúng định dạng") from exc
 
 
+def default_temperature(model: str) -> float | None:
+    """Mô hình đời cũ (Gemini 1.x/2.x) dùng nhiệt độ thấp cho ổn định. Từ Gemini 3.5 Flash-Lite / 3.6 Flash,
+    Google ngừng hỗ trợ temperature (bị bỏ qua, các thế hệ sau trả HTTP 400), nên không gửi.
+    Độ ổn định khi đó dựa vào các quy tắc trong system prompt."""
+    return 0.1 if model.startswith(("gemini-1", "gemini-2")) else None
+
+
 class GeminiVQA:
     name = "gemini"
 
@@ -98,6 +112,10 @@ class GeminiVQA:
         client: Any | None = None,
         max_retries: int = 2,
         backoff_s: float = 1.0,
+        grounding_check: bool = True,
+        blur_var_threshold: float = 150.0,
+        min_image_side: int = 320,
+        temperature: float | None = None,
     ) -> None:
         if client is None and not api_key:
             self.client = None
@@ -108,6 +126,10 @@ class GeminiVQA:
         self.low_threshold = low_threshold
         self.max_retries = max_retries
         self.backoff_s = backoff_s
+        self.grounding_check = grounding_check
+        self.temperature = default_temperature(model) if temperature is None else temperature
+        self.blur_var_threshold = blur_var_threshold
+        self.min_image_side = min_image_side
 
     async def answer(
         self,
@@ -124,12 +146,14 @@ class GeminiVQA:
             types.Part.from_bytes(data=image_bytes, mime_type=sniff_mime(image_bytes)),
             build_user_prompt(question, ocr_text, ocr_confidence),
         ]
-        config = types.GenerateContentConfig(
+        config_kwargs: dict[str, Any] = dict(
             system_instruction=SYSTEM_PROMPT,
-            temperature=0.1,
             response_mime_type="application/json",
             response_schema=GeminiAnswer,
         )
+        if self.temperature is not None:  # Gemini 3.5 Flash-Lite / 3.6 Flash trở đi không nhận temperature
+            config_kwargs["temperature"] = self.temperature
+        config = types.GenerateContentConfig(**config_kwargs)
 
         response = await self._generate(contents, config)
         parsed = parse_answer(response)
@@ -137,6 +161,17 @@ class GeminiVQA:
         reasons = [r for r in parsed.reasons if r in ALLOWED_REASONS]
         if ocr_confidence is not None and ocr_confidence < 0.6 and "ocr_low_confidence" not in reasons:
             reasons.append("ocr_low_confidence")
+        # Tín hiệu độc lập với mô hình: ảnh mờ hoặc phân giải thấp
+        for reason in quality_reasons(image_bytes, self.blur_var_threshold, self.min_image_side):
+            if reason not in reasons:
+                reasons.append(reason)
+        # Kiểm tra bám dữ liệu: số nào trong câu trả lời mà mô hình không khai báo là đọc từ ảnh thì nghi bịa
+        if self.grounding_check and parsed.can_answer:
+            bad = ungrounded_numbers(parsed.answer, parsed.values, question, ocr_text)
+            if bad:
+                log.warning("Số chưa kiểm chứng trong câu trả lời: %s", bad)
+                if "ungrounded_number" not in reasons:
+                    reasons.append("ungrounded_number")
         confidence = calibrate(parsed.self_confidence, parsed.can_answer, reasons, ocr_confidence)
 
         return VQAResult(

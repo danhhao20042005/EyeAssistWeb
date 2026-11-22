@@ -18,5 +18,11 @@ async def health(request: Request) -> dict:
         "ocr_warning": getattr(engines.ocr, "warning", None),
         "vqa": getattr(engines.vqa, "name", "unknown"),
         "vqa_ready": vqa_ready,
+        "vqa_mock": getattr(engines.vqa, "name", "") == "mock",
+        "vqa_model": getattr(engines.vqa, "model", None),
+        "thresholds": {
+            "confident": getattr(engines.vqa, "confident_threshold", None),
+            "low": getattr(engines.vqa, "low_threshold", None),
+        },
         "jobs": len(state.store.jobs),
     }

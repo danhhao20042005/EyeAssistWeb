@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { TYPE_LABEL, type Block, type BlockType } from '@/lib/demoDocument';
+import { createAfterEarcon } from '@/lib/earconSync';
 
 export const SPEED_MIN = 0.5;
 export const SPEED_MAX = 2;
@@ -15,14 +16,20 @@ export function splitSentences(text: string): string[] {
 type Options = {
   blocks: Block[];
   announce: (message: string) => void;
-  onNavigate?: (block: Block) => void;
+  /** Gọi khi vào một khối mới (kể cả lúc đang đọc liên tục). Trả về thời lượng âm báo (ms) để chờ xong rồi mới đọc. */
+  onNavigate?: (block: Block) => number | void;
+  /** Dừng ngay các âm báo đang phát khi người dùng chuyển vùng nhanh. */
+  stopEarcons?: () => void;
 };
 
 export type WordRange = [number, number] | null;
 
-export function useReader({ blocks, announce, onNavigate }: Options) {
+export function useReader({ blocks, announce, onNavigate, stopEarcons }: Options) {
   const onNavigateRef = useRef(onNavigate);
   onNavigateRef.current = onNavigate;
+  const stopEarconsRef = useRef(stopEarcons);
+  stopEarconsRef.current = stopEarcons;
+  const gateRef = useRef(createAfterEarcon());
   const [current, setCurrent] = useState(0);
   const [sentence, setSentence] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -38,6 +45,7 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
 
   const cancelSpeech = useCallback(() => {
     tokenRef.current += 1;
+    gateRef.current.cancel();
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
@@ -58,7 +66,7 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
   }, [cancelSpeech]);
 
   const speakAt = useCallback(
-    (blockIndex: number, sentenceIndex: number) => {
+    (blockIndex: number, sentenceIndex: number, options?: { earcon?: boolean }) => {
       if (!supported) {
         announce('Trình duyệt này không hỗ trợ đọc thành tiếng');
         stopPlaying();
@@ -72,34 +80,46 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
       }
       const sentences = splitSentences(block.speech);
       if (sentenceIndex >= sentences.length) {
-        speakAt(blockIndex + 1, 0);
+        speakAt(blockIndex + 1, 0, { earcon: true }); // sang khối mới: có âm báo
         return;
       }
       cancelSpeech();
       const token = tokenRef.current;
       setPosition(blockIndex, sentenceIndex);
-      const utterance = new SpeechSynthesisUtterance(sentences[sentenceIndex]);
-      utterance.lang = 'vi-VN';
-      utterance.rate = speedRef.current;
-      utterance.onboundary = (event) => {
-        if (token !== tokenRef.current) return;
-        const text = sentences[sentenceIndex];
-        const start = event.charIndex;
-        const match = /^\S+/.exec(text.slice(start));
-        const end = match ? start + match[0].length : start;
-        setWordRange([start, end]);
+
+      const begin = () => {
+        if (token !== tokenRef.current) return; // đã có lần chuyển/dừng mới hơn
+        const utterance = new SpeechSynthesisUtterance(sentences[sentenceIndex]);
+        utterance.lang = 'vi-VN';
+        utterance.rate = speedRef.current;
+        utterance.onboundary = (event) => {
+          if (token !== tokenRef.current) return;
+          const text = sentences[sentenceIndex];
+          const start = event.charIndex;
+          const match = /^\S+/.exec(text.slice(start));
+          const end = match ? start + match[0].length : start;
+          setWordRange([start, end]);
+        };
+        utterance.onend = () => {
+          if (token !== tokenRef.current || !playingRef.current) return;
+          speakAt(blockIndex, sentenceIndex + 1);
+        };
+        utterance.onerror = (event) => {
+          if (token !== tokenRef.current) return;
+          if (event.error === 'canceled' || event.error === 'interrupted') return;
+          stopPlaying();
+          announce('Không đọc được nội dung này');
+        };
+        window.speechSynthesis.speak(utterance);
       };
-      utterance.onend = () => {
-        if (token !== tokenRef.current || !playingRef.current) return;
-        speakAt(blockIndex, sentenceIndex + 1);
-      };
-      utterance.onerror = (event) => {
-        if (token !== tokenRef.current) return;
-        if (event.error === 'canceled' || event.error === 'interrupted') return;
-        stopPlaying();
-        announce('Không đọc được nội dung này');
-      };
-      window.speechSynthesis.speak(utterance);
+
+      // Vào khối mới: huỷ âm báo cũ, phát âm báo mới, rồi chờ nó xong mới đọc (tránh chồng tiếng).
+      let earconMs = 0;
+      if (options?.earcon) {
+        stopEarconsRef.current?.();
+        earconMs = onNavigateRef.current?.(block) ?? 0;
+      }
+      gateRef.current.run(earconMs, begin);
     },
     [announce, blocks, cancelSpeech, setPosition, stopPlaying, supported],
   );
@@ -117,10 +137,15 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
       const clamped = Math.min(blocks.length - 1, Math.max(0, index));
       setPosition(clamped, 0);
       announce(describeBlock(clamped));
-      if (playingRef.current) speakAt(clamped, 0);
-      else onNavigateRef.current?.(blocks[clamped]);
+      if (playingRef.current) {
+        speakAt(clamped, 0, { earcon: true });
+      } else {
+        cancelSpeech();
+        stopEarconsRef.current?.();
+        onNavigateRef.current?.(blocks[clamped]);
+      }
     },
-    [announce, blocks, describeBlock, setPosition, speakAt],
+    [announce, blocks, cancelSpeech, describeBlock, setPosition, speakAt],
   );
 
   const next = useCallback(() => {
@@ -202,10 +227,19 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
         nextSentence = 0;
       }
       setPosition(nextBlock, nextSentence);
-      if (playingRef.current) speakAt(nextBlock, nextSentence);
-      else announce(describeBlock(nextBlock));
+      const changed = nextBlock !== block;
+      if (playingRef.current) {
+        speakAt(nextBlock, nextSentence, { earcon: changed });
+      } else {
+        if (changed) {
+          cancelSpeech();
+          stopEarconsRef.current?.();
+          onNavigateRef.current?.(blocks[nextBlock]);
+        }
+        announce(describeBlock(nextBlock));
+      }
     },
-    [announce, blocks, describeBlock, setPosition, speakAt],
+    [announce, blocks, cancelSpeech, describeBlock, setPosition, speakAt],
   );
 
   const changeSpeed = useCallback(
@@ -246,20 +280,25 @@ export function useReader({ blocks, announce, onNavigate }: Options) {
   }, [announce, blocks, stopPlaying, supported]);
 
   const speakText = useCallback(
-    (text: string) => {
+    (text: string, earconMs = 0) => {
       if (!supported) {
         announce(text);
         return;
       }
       stopPlaying();
       const token = tokenRef.current;
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'vi-VN';
-      utterance.rate = speedRef.current;
-      utterance.onend = () => {
-        if (token === tokenRef.current) setWordRange(null);
+      const begin = () => {
+        if (token !== tokenRef.current) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'vi-VN';
+        utterance.rate = speedRef.current;
+        utterance.onend = () => {
+          if (token === tokenRef.current) setWordRange(null);
+        };
+        window.speechSynthesis.speak(utterance);
       };
-      window.speechSynthesis.speak(utterance);
+      // earconMs: thời lượng âm báo vừa phát ngay trước đó; chờ xong rồi mới đọc
+      gateRef.current.run(earconMs, begin);
     },
     [announce, stopPlaying, supported],
   );

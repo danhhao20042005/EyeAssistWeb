@@ -7,14 +7,26 @@ import { earconPlayer, type EarconName } from '@/lib/earcons';
 export function useEarcons() {
   const { earcons, earconVolume } = useAccessibility();
 
+  /** Trả về thời lượng âm báo (ms) để chờ xong rồi mới đọc; 0 nếu âm báo đang tắt. */
   const play = useCallback(
-    (name: EarconName, options?: { force?: boolean }) => {
-      if (!earcons && !options?.force) return;
+    (name: EarconName, options?: { force?: boolean }): number => {
+      if (!earcons && !options?.force) return 0;
       earconPlayer.setVolume(earconVolume);
-      earconPlayer.play(name);
+      return earconPlayer.play(name);
     },
     [earcons, earconVolume],
   );
+
+  const playSequence = useCallback(
+    (names: EarconName[]): number => {
+      if (!earcons) return 0;
+      earconPlayer.setVolume(earconVolume);
+      return earconPlayer.playSequence(names);
+    },
+    [earcons, earconVolume],
+  );
+
+  const cancel = useCallback(() => earconPlayer.cancel(), []);
 
   const startProcessing = useCallback(() => {
     if (!earcons) return;
@@ -24,5 +36,5 @@ export function useEarcons() {
 
   const stopProcessing = useCallback(() => earconPlayer.stopProcessing(), []);
 
-  return { play, startProcessing, stopProcessing };
+  return { play, playSequence, cancel, startProcessing, stopProcessing };
 }

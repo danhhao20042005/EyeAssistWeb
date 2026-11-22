@@ -1,3 +1,5 @@
+import { EARCON_GAP_MS, patternDurationMs, planSequence } from './earconSync';
+
 export type EarconName =
   | 'ready'
   | 'done'
@@ -52,6 +54,11 @@ const PATTERNS: Record<Exclude<EarconName, 'processing'>, Tone[]> = {
   error: [{ freq: 196, start: 0, dur: 0.32, type: 'sawtooth', gain: 0.4, glideTo: 140 }],
 };
 
+/** Thời lượng (ms) của một âm báo; 0 với 'processing' (lặp liên tục, không có điểm kết thúc). */
+export function earconDurationMs(name: EarconName): number {
+  return name === 'processing' ? 0 : patternDurationMs(PATTERNS[name]);
+}
+
 export const EARCON_LABEL: Partial<Record<EarconName, string>> = {
   ready: 'Sẵn sàng',
   done: 'Hoàn tất',
@@ -73,6 +80,7 @@ class EarconPlayer {
   private master: GainNode | null = null;
   private volume = 0.6;
   private timer: ReturnType<typeof setInterval> | null = null;
+  private active = new Set<{ osc: OscillatorNode; gain: GainNode }>();
 
   setVolume(value: number) {
     this.volume = Math.min(1, Math.max(0, value));
@@ -93,8 +101,8 @@ class EarconPlayer {
     return this.ctx;
   }
 
-  private schedule(ctx: AudioContext, tones: Tone[]) {
-    const origin = ctx.currentTime + 0.01;
+  private schedule(ctx: AudioContext, tones: Tone[], delayMs = 0) {
+    const origin = ctx.currentTime + 0.01 + delayMs / 1000;
     for (const tone of tones) {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -109,19 +117,55 @@ class EarconPlayer {
       gain.gain.exponentialRampToValueAtTime(0.0001, end);
       osc.connect(gain);
       gain.connect(this.master ?? ctx.destination);
+      const entry = { osc, gain };
+      this.active.add(entry);
+      osc.onended = () => this.active.delete(entry);
       osc.start(start);
       osc.stop(end + 0.02);
     }
   }
 
-  play(name: EarconName) {
+  /** Phát một âm báo. Trả về thời lượng (ms) để bên gọi chờ xong rồi mới đọc; 0 nếu không phát được. */
+  play(name: EarconName): number {
     if (name === 'processing') {
       this.startProcessing();
-      return;
+      return 0;
     }
     const ctx = this.ensure();
-    if (!ctx) return;
+    if (!ctx) return 0;
     this.schedule(ctx, PATTERNS[name]);
+    return earconDurationMs(name);
+  }
+
+  /** Phát nhiều âm báo nối đuôi nhau, hẹn giờ ngay trên đồng hồ âm thanh nên không lệch. Trả về tổng thời lượng (ms). */
+  playSequence(names: EarconName[], gapMs: number = EARCON_GAP_MS): number {
+    const playable = names.filter((n): n is Exclude<EarconName, 'processing'> => n !== 'processing');
+    const ctx = playable.length ? this.ensure() : null;
+    if (!ctx) return 0;
+    const { steps, totalMs } = planSequence(
+      playable.map((name) => ({ name, durationMs: earconDurationMs(name) })),
+      gapMs,
+    );
+    for (const step of steps) {
+      this.schedule(ctx, PATTERNS[step.name as Exclude<EarconName, 'processing'>], step.offsetMs);
+    }
+    return totalMs;
+  }
+
+  /** Dừng ngay mọi âm báo đang phát hoặc đã hẹn (khi người dùng chuyển vùng nhanh). */
+  cancel() {
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    for (const { osc, gain } of this.active) {
+      gain.gain.cancelScheduledValues(now);
+      gain.gain.setTargetAtTime(0, now, 0.01);
+      try {
+        osc.stop(now + 0.05);
+      } catch {
+        /* đã dừng */
+      }
+    }
+    this.active.clear();
   }
 
   startProcessing() {

@@ -6,6 +6,7 @@ import { useAccessibility } from '@/lib/accessibility';
 import type { Reader } from '@/lib/useReader';
 import { useViewerShortcuts } from '@/lib/useShortcuts';
 import { Highlighted } from '@/components/Highlighted';
+import { CONFIDENT_THRESHOLD, LOW_THRESHOLD } from '@/lib/thresholds';
 
 type Props = {
   blocks: Block[];
@@ -185,9 +186,9 @@ export function DocumentViewer({ blocks, reader, onAsk, onDescribe }: Props) {
                 {TYPE_LABEL[block.type]} {i + 1} trên {blocks.length}.
               </span>
               <BlockBody block={block} active={active} reader={reader} />
-              {block.type !== 'figure' && block.confidence !== undefined && block.confidence < 0.85 && (
+              {block.type !== 'figure' && block.confidence !== undefined && block.confidence < CONFIDENT_THRESHOLD && (
                 <p className="mt-3 border-2 border-dashed border-fg p-2 text-sm font-bold">
-                  ⚠ {block.confidence < 0.6 ? 'Nhận dạng không đủ tin cậy' : 'Nhận dạng chưa chắc chắn'} (
+                  ⚠ {block.confidence < LOW_THRESHOLD ? 'Nhận dạng không đủ tin cậy' : 'Nhận dạng chưa chắc chắn'} (
                   {Math.round(block.confidence * 100)}%). Nhấn Q để hỏi AI kiểm tra lại.
                 </p>
               )}

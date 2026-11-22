@@ -13,7 +13,7 @@ type Props = {
   index: number;
   total: number;
   docId?: string;
-  speak: (text: string) => void;
+  speak: (text: string, earconMs?: number) => void;
 };
 
 export const LEVEL_LABEL: Record<UncertaintyLevel, string> = {
@@ -77,8 +77,8 @@ export function AskDialog({ open, onClose, block, index, total, docId, speak }: 
         image ? { question: text, image } : { question: text, documentId: docId, blockId: block?.id },
       );
       setResult(answer);
-      play(LEVEL_EARCON[answer.uncertainty_level]);
-      speak(`${LEVEL_SPEECH[answer.uncertainty_level]}${answer.answer}`);
+      const earconMs = play(LEVEL_EARCON[answer.uncertainty_level]);
+      speak(`${LEVEL_SPEECH[answer.uncertainty_level]}${answer.answer}`, earconMs); // chờ âm báo xong rồi mới đọc
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Không hỏi được AI');
       play('error');

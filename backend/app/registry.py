@@ -1,5 +1,6 @@
 import importlib
 import inspect
+import logging
 from dataclasses import dataclass
 from typing import Any
 
@@ -16,6 +17,9 @@ class Engines:
     layout: LayoutAnalyzer
     ocr: OCREngine
     vqa: VQAEngine
+
+
+log = logging.getLogger("eyeassist.registry")
 
 
 class PluginError(RuntimeError):
@@ -52,6 +56,7 @@ def build_engines(settings: Settings) -> Engines:
     if settings.vqa_plugin:
         vqa: Any = load_plugin(settings.vqa_plugin, settings)
     elif settings.vqa_engine == "mock":
+        log.warning("VQA_ENGINE=mock: đang trả lời GIẢ LẬP, không gọi Gemini. Đặt VQA_ENGINE=gemini để dùng mô hình thật.")
         vqa = MockVQA()
     else:
         vqa = GeminiVQA(
@@ -59,7 +64,13 @@ def build_engines(settings: Settings) -> Engines:
             model=settings.gemini_model,
             confident_threshold=settings.confident_threshold,
             low_threshold=settings.low_threshold,
+            temperature=settings.gemini_temperature,
+            grounding_check=settings.grounding_check,
+            blur_var_threshold=settings.blur_var_threshold,
+            min_image_side=settings.min_image_side,
         )
+        if settings.gemini_api_key is None:
+            log.warning("Chưa có GEMINI_API_KEY: /api/vqa sẽ trả lỗi 503 cho đến khi cấu hình khoá.")
     engines = Engines(layout=layout, ocr=ocr, vqa=vqa)
     validate(engines)
     return engines

@@ -14,7 +14,7 @@ def _bool(value: str | None, default: bool) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
-def _float(value: str | None, default: float) -> float:
+def _float(value: str | None, default: float | None) -> float | None:
     try:
         return float(value) if value not in (None, "") else default
     except ValueError:
@@ -43,6 +43,10 @@ class Settings:
     vqa_timeout_s: float = 40.0
     confident_threshold: float = 0.85
     low_threshold: float = 0.60
+    gemini_temperature: float | None = None  # None = tự chọn theo mô hình
+    grounding_check: bool = True
+    blur_var_threshold: float = 150.0
+    min_image_side: int = 320
     job_ttl_s: int = 3600
     data_dir: Path = field(default_factory=lambda: Path(tempfile.gettempdir()) / "eyeassist-data")
     ocr_plugin: str | None = None
@@ -66,6 +70,10 @@ def load_settings() -> Settings:
         vqa_timeout_s=_float(env("VQA_TIMEOUT_S"), 40.0),
         confident_threshold=_float(env("CONFIDENT_THRESHOLD"), 0.85),
         low_threshold=_float(env("LOW_THRESHOLD"), 0.60),
+        gemini_temperature=_float(env("GEMINI_TEMPERATURE"), None),
+        grounding_check=_bool(env("VQA_GROUNDING_CHECK"), True),
+        blur_var_threshold=_float(env("BLUR_VAR_THRESHOLD"), 150.0),
+        min_image_side=_int(env("MIN_IMAGE_SIDE"), 320),
         data_dir=Path(env("DATA_DIR") or Path(tempfile.gettempdir()) / "eyeassist-data"),
         ocr_plugin=env("EYEASSIST_OCR_PLUGIN") or None,
         layout_plugin=env("EYEASSIST_LAYOUT_PLUGIN") or None,

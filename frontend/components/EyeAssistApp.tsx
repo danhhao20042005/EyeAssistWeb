@@ -6,6 +6,9 @@ import type { Block } from '@/lib/demoDocument';
 import { useAccessibility } from '@/lib/accessibility';
 import { useReader } from '@/lib/useReader';
 import { useEarcons } from '@/lib/useEarcons';
+import type { EarconName } from '@/lib/earcons';
+import { warningEarcon } from '@/lib/earconSync';
+import { CONFIDENT_THRESHOLD, LOW_THRESHOLD } from '@/lib/thresholds';
 import { useDocument } from '@/lib/useDocument';
 import { useGlobalShortcuts } from '@/lib/useShortcuts';
 import { Toolbar } from '@/components/Toolbar';
@@ -26,7 +29,7 @@ type WorkspaceProps = {
 
 function Workspace({ baseBlocks, docId }: WorkspaceProps) {
   const { announce, follow, zoomMode } = useAccessibility();
-  const { play } = useEarcons();
+  const { play, playSequence, cancel: stopEarcons } = useEarcons();
   const [descriptions, setDescriptions] = useState<Record<string, string>>({});
   const [askOpen, setAskOpen] = useState(false);
 
@@ -38,18 +41,18 @@ function Workspace({ baseBlocks, docId }: WorkspaceProps) {
     [baseBlocks, descriptions],
   );
 
+  // Âm loại khối, rồi (nếu OCR không chắc) âm cảnh báo nối ngay sau đó. Trả về tổng thời lượng để giọng đọc chờ xong.
   const onNavigate = useCallback(
-    (block: Block) => {
-      play(block.type);
-      const confidence = block.confidence;
-      if (block.type !== 'figure' && confidence !== undefined && confidence < 0.85) {
-        setTimeout(() => play(confidence < 0.6 ? 'low' : 'uncertain'), 350);
-      }
+    (block: Block): number => {
+      const names: EarconName[] = [block.type];
+      const warning = block.type === 'figure' ? null : warningEarcon(block.confidence, CONFIDENT_THRESHOLD, LOW_THRESHOLD);
+      if (warning) names.push(warning);
+      return playSequence(names);
     },
-    [play],
+    [playSequence],
   );
 
-  const reader = useReader({ blocks, announce, onNavigate });
+  const reader = useReader({ blocks, announce, onNavigate, stopEarcons });
   const [pinned, setPinned] = useState(0);
 
   useEffect(() => {
@@ -80,9 +83,9 @@ function Workspace({ baseBlocks, docId }: WorkspaceProps) {
     try {
       const answer = await askVqa({ question: DESCRIBE_QUESTION, documentId: docId, blockId: block.id });
       setDescriptions((prev) => ({ ...prev, [block.id]: answer.answer }));
-      play(LEVEL_EARCON[answer.uncertainty_level]);
+      const earconMs = play(LEVEL_EARCON[answer.uncertainty_level]);
       const prefix = answer.uncertainty_level === 'confident' ? '' : 'AI chưa chắc chắn về mô tả này. ';
-      reader.speakText(`${prefix}${answer.answer}`);
+      reader.speakText(`${prefix}${answer.answer}`, earconMs); // chờ âm báo xong rồi mới đọc
     } catch (error) {
       announce(error instanceof Error ? error.message : 'Không mô tả được hình');
       play('error');
