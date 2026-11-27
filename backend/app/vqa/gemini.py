@@ -2,7 +2,7 @@ import asyncio
 import io
 import json
 import logging
-from typing import Any
+from typing import Any, Literal
 
 from google import genai
 from google.genai import errors, types
@@ -39,6 +39,7 @@ class GeminiAnswer(BaseModel):
     can_answer: bool = True
     self_confidence: float = Field(ge=0.0, le=1.0)
     reasons: list[str] = Field(default_factory=list)
+    axis_labels: Literal["readable", "blurry", "missing", "not_applicable"] = "not_applicable"
     values: list[str] = Field(default_factory=list)  # mọi số nêu trong answer, chép đúng như trong ảnh
     evidence: str | None = None
     evidence_box: list[int] | None = None
@@ -159,6 +160,12 @@ class GeminiVQA:
         parsed = parse_answer(response)
 
         reasons = [r for r in parsed.reasons if r in ALLOWED_REASONS]
+        axis_reason = {
+            "missing": "axis_label_missing",
+            "blurry": "axis_label_blurry",
+        }.get(parsed.axis_labels)
+        if axis_reason and axis_reason not in reasons:
+            reasons.append(axis_reason)
         if ocr_confidence is not None and ocr_confidence < 0.6 and "ocr_low_confidence" not in reasons:
             reasons.append("ocr_low_confidence")
         # Tín hiệu độc lập với mô hình: ảnh mờ hoặc phân giải thấp
