@@ -3,7 +3,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 BlockType = Literal["heading", "paragraph", "figure", "table"]
-JobState = Literal["queued", "processing", "done", "error"]
+JobState = Literal["pending", "processing", "completed", "failed"]
 UncertaintyLevel = Literal["confident", "uncertain", "low"]
 
 

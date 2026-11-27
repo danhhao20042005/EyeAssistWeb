@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { TYPE_LABEL, type Block, type BlockType } from '@/lib/demoDocument';
+import { TYPE_LABEL, type Block, type BlockType } from '@/lib/types';
 import { createAfterEarcon } from '@/lib/earconSync';
 
 export const SPEED_MIN = 0.5;

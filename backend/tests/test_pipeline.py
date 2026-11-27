@@ -85,6 +85,13 @@ def test_blank_page_has_no_blocks():
     assert ok
 
 
+def test_full_width_solid_slide_banner_is_not_a_figure():
+    image = np.full((1000, 1600, 3), 255, dtype=np.uint8)
+    image[:100, :] = (30, 58, 138)
+    regions = ClassicalLayoutAnalyzer().analyze(image)
+    assert not any(region.type == "figure" for region in regions)
+
+
 @needs_ocr
 def test_born_digital_pdf_uses_text_layer():
     import pymupdf

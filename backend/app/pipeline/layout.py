@@ -109,6 +109,12 @@ class ClassicalLayoutAnalyzer:
             x, y, w, h, area = stats[i]
             if w * h < 0.010 * page_area or w < 0.08 * width or h < 0.05 * height:
                 continue
+            aspect = w / max(1, h)
+            density = float((ink[y : y + h, x : x + w] > 0).mean())
+            # Large, solid header bands (often colored slide banners) become
+            # foreground ink after thresholding but are not figures.
+            if aspect >= 5.0 and h <= 0.16 * height and density >= 0.45:
+                continue
             boxes.append((max(0, x - pad), max(0, y - pad), min(width, w + 2 * pad), min(height, h + 2 * pad)))
         return _merge_boxes(boxes)
 

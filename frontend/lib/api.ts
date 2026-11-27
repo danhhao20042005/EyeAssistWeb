@@ -1,4 +1,4 @@
-import type { Block, BlockType } from '@/lib/demoDocument';
+import { TYPE_LABEL, type Block, type BlockType } from '@/lib/types';
 
 export const API_BASE = (process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:8000').replace(/\/$/, '');
 
@@ -39,7 +39,7 @@ export type ApiDocument = {
 export type ApiJob = {
   id: string;
   filename: string;
-  status: 'queued' | 'processing' | 'done' | 'error';
+  status: 'pending' | 'processing' | 'completed' | 'failed';
   progress: number;
   error: string | null;
   result: ApiDocument | null;
@@ -119,7 +119,7 @@ function rectangular(rows: string[][]): string[][] {
 
 function speakTable(rows: string[][]): string {
   const [head, ...body] = rows;
-  const names = head.map((cell, i) => cell || `Cột ${i + 1}`);
+  const names = (head ?? []).map((cell, i) => cell || `${TYPE_LABEL.table} ${i + 1}`);
   const lines = body.map((row) =>
     row
       .map((cell, i) => `${names[i]}: ${cell || 'trống'}`)

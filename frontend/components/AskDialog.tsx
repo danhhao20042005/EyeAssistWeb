@@ -2,9 +2,25 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { askVqa, type UncertaintyLevel, type VqaResult } from '@/lib/api';
-import { TYPE_LABEL, type Block } from '@/lib/demoDocument';
+import { TYPE_LABEL, type Block } from '@/lib/types';
 import { useEarcons } from '@/lib/useEarcons';
 import type { EarconName } from '@/lib/earcons';
+
+type RecognitionResult = { 0: { transcript: string } };
+type RecognitionEvent = { results: ArrayLike<RecognitionResult> };
+type RecognitionLike = {
+  lang: string;
+  interimResults: boolean;
+  onresult: ((event: RecognitionEvent) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+};
+type SpeechWindow = Window & {
+  SpeechRecognition?: new () => RecognitionLike;
+  webkitSpeechRecognition?: new () => RecognitionLike;
+};
 
 type Props = {
   open: boolean;
@@ -37,6 +53,8 @@ const LEVEL_SPEECH: Record<UncertaintyLevel, string> = {
 export function AskDialog({ open, onClose, block, index, total, docId, speak }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const resultRef = useRef<HTMLElement>(null);
+  const recognitionRef = useRef<RecognitionLike | null>(null);
   const { play } = useEarcons();
   const [question, setQuestion] = useState('');
   const [image, setImage] = useState<File | null>(null);
@@ -55,6 +73,30 @@ export function AskDialog({ open, onClose, block, index, total, docId, speak }: 
     }
     if (!open && dialog.open) dialog.close();
   }, [open]);
+
+  useEffect(() => {
+    if (result && result.uncertainty_level !== 'confident') resultRef.current?.focus();
+  }, [result]);
+
+  useEffect(() => () => recognitionRef.current?.stop(), []);
+
+  const startVoiceInput = () => {
+    const speechWindow = window as SpeechWindow;
+    const Recognition = speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition;
+    if (!Recognition) {
+      setError('Trình duyệt chưa hỗ trợ nhập câu hỏi bằng giọng nói.');
+      return;
+    }
+    const recognition = new Recognition();
+    recognitionRef.current = recognition;
+    recognition.lang = 'vi-VN';
+    recognition.interimResults = false;
+    recognition.onresult = (event) => setQuestion(event.results[0]?.[0]?.transcript ?? '');
+    recognition.onerror = () => setError('Không nhận được giọng nói. Hãy kiểm tra quyền micro rồi thử lại.');
+    recognition.onend = () => { recognitionRef.current = null; };
+    setError('');
+    recognition.start();
+  };
 
   const canAsk = Boolean(image || (docId && block));
 
@@ -132,6 +174,9 @@ export function AskDialog({ open, onClose, block, index, total, docId, speak }: 
           <button type="submit" className="btn btn-primary" disabled={busy}>
             {busy ? 'Đang hỏi...' : 'Hỏi (Enter)'}
           </button>
+          <button type="button" className="btn" onClick={startVoiceInput} disabled={busy}>
+            Nhập câu hỏi bằng giọng nói
+          </button>
           <label className="btn cursor-pointer">
             {image ? 'Đổi ảnh' : 'Hoặc chọn ảnh để hỏi trực tiếp'}
             <input
@@ -157,7 +202,14 @@ export function AskDialog({ open, onClose, block, index, total, docId, speak }: 
           </p>
         )}
         {result && (
-          <section aria-label="Câu trả lời" className="rounded-md border-[3px] border-fg bg-pane p-4">
+          <section
+            ref={resultRef}
+            tabIndex={result.uncertainty_level === 'confident' ? undefined : -1}
+            role={result.uncertainty_level === 'confident' ? 'status' : 'alert'}
+            aria-live={result.uncertainty_level === 'confident' ? 'polite' : 'assertive'}
+            aria-label={result.uncertainty_level === 'confident' ? 'Câu trả lời' : 'Cảnh báo độ tin cậy của câu trả lời'}
+            className="rounded-md border-[3px] border-fg bg-pane p-4"
+          >
             <p className="text-xl font-extrabold">{result.answer}</p>
             <p className="mt-3 border-2 border-dashed border-fg p-2 font-bold">
               {result.uncertainty_level === 'confident' ? '✓ ' : '⚠ '}

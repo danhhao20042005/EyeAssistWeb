@@ -1,6 +1,6 @@
 'use client';
 
-import { TYPE_LABEL, type Block } from '@/lib/demoDocument';
+import { TYPE_LABEL, type Block } from '@/lib/types';
 import { useAccessibility } from '@/lib/accessibility';
 import type { WordRange } from '@/lib/useReader';
 import { Highlighted, currentWord } from '@/components/Highlighted';

@@ -25,7 +25,7 @@ class JobStore:
 
     def create(self, filename: str) -> JobStatus:
         self.purge()
-        job = JobStatus(id=uuid.uuid4().hex[:12], filename=filename, status="queued")
+        job = JobStatus(id=uuid.uuid4().hex[:12], filename=filename, status="pending")
         self.jobs[job.id] = job
         self.created[job.id] = time.time()
         return job
@@ -35,7 +35,12 @@ class JobStore:
 
     def purge(self) -> None:
         now = time.time()
-        for job_id in [j for j, t in self.created.items() if now - t > self.ttl_s]:
+        for job_id in [
+            j
+            for j, created_at in self.created.items()
+            if now - created_at > self.ttl_s
+            and self.jobs[j].status in {"completed", "failed"}
+        ]:
             self.jobs.pop(job_id, None)
             self.created.pop(job_id, None)
             shutil.rmtree(self.data_dir / job_id, ignore_errors=True)
@@ -44,7 +49,8 @@ class JobStore:
         folder = self.data_dir / job_id
         folder.mkdir(parents=True, exist_ok=True)
         for index, image in enumerate(images):
-            cv2.imwrite(str(folder / f"page_{index}.png"), image)
+            if not cv2.imwrite(str(folder / f"page_{index}.png"), image):
+                raise OSError(f"Could not persist rendered page {index}")
 
     def page_path(self, job_id: str, index: int) -> Path | None:
         path = self.data_dir / job_id / f"page_{index}.png"
@@ -94,12 +100,16 @@ async def run_job(
             result, images = await asyncio.to_thread(pipeline.process, data, filename, job_id, on_progress)
             await asyncio.to_thread(store.save_pages, job_id, images)
         except ValueError as exc:
-            job.status = "error"
+            job.status = "failed"
             job.error = str(exc)
             return
+        except asyncio.CancelledError:
+            job.status = "failed"
+            job.error = "Xử lý tài liệu đã bị hủy khi máy chủ dừng"
+            raise
         except Exception as exc:
             logger.exception("Xử lý tài liệu thất bại: %s", filename)
-            job.status = "error"
+            job.status = "failed"
             name = type(exc).__name__
             if "TesseractNotFound" in name or "tesseract is not installed" in str(exc).lower():
                 job.error = "Không tìm thấy Tesseract OCR. Hãy cài Tesseract và đặt TESSERACT_CMD trong .env"
@@ -108,4 +118,4 @@ async def run_job(
             return
         job.result = result
         job.progress = 1.0
-        job.status = "done"
+        job.status = "completed"

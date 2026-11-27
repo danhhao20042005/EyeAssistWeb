@@ -5,7 +5,7 @@ import { API_BASE } from '@/lib/api';
 import type { DocumentController } from '@/lib/useDocument';
 
 const PHASE_TEXT = {
-  demo: 'Đang dùng tài liệu mẫu',
+  idle: 'Chưa có tài liệu; tải PDF hoặc ảnh để bắt đầu',
   uploading: 'Đang tải lên',
   processing: 'Đang phân tích bố cục và nhận dạng chữ',
   ready: 'Đã xử lý xong',
@@ -13,7 +13,7 @@ const PHASE_TEXT = {
 } as const;
 
 export function UploadBar({ doc }: { doc: DocumentController }) {
-  const { state, upload, useDemo } = doc;
+  const { state, upload } = doc;
   const inputRef = useRef<HTMLInputElement>(null);
   const busy = state.phase === 'uploading' || state.phase === 'processing';
   const percent = Math.round(state.progress * 100);
@@ -37,11 +37,8 @@ export function UploadBar({ doc }: { doc: DocumentController }) {
       <button type="button" className="btn btn-primary" disabled={busy} onClick={() => inputRef.current?.click()}>
         Tải tài liệu lên (PDF, PNG, JPG)
       </button>
-      <button type="button" className="btn" disabled={busy || state.phase === 'demo'} onClick={useDemo}>
-        Dùng tài liệu mẫu
-      </button>
       <p className="font-bold">
-        {state.filename && state.phase !== 'demo' ? `${state.filename}: ` : ''}
+        {state.filename && state.phase !== 'idle' ? `${state.filename}: ` : ''}
         {PHASE_TEXT[state.phase]}
         {busy && state.phase === 'processing' ? ` (${percent}%)` : ''}
         {state.phase === 'ready' ? `, ${state.blocks.length} mục` : ''}

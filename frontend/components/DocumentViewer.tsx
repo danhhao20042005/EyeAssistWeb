@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { TYPE_LABEL, type Block } from '@/lib/demoDocument';
+import { TYPE_LABEL, type Block } from '@/lib/types';
 import { useAccessibility } from '@/lib/accessibility';
 import type { Reader } from '@/lib/useReader';
 import { useViewerShortcuts } from '@/lib/useShortcuts';

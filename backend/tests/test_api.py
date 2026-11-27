@@ -1,3 +1,4 @@
+import asyncio
 import time
 
 import pytest
@@ -23,7 +24,7 @@ def wait_done(client: TestClient, job_id: str, timeout: float = 60):
     deadline = time.time() + timeout
     while time.time() < deadline:
         body = client.get(f"/api/documents/{job_id}").json()
-        if body["status"] in {"done", "error"}:
+        if body["status"] in {"completed", "failed"}:
             return body
         time.sleep(0.2)
     raise AssertionError("job timeout")
@@ -53,7 +54,31 @@ def test_corrupt_pdf_ends_in_error_state():
         response = client.post("/api/documents", files={"file": ("a.pdf", b"%PDF-broken", "application/pdf")})
         assert response.status_code == 202
         body = wait_done(client, response.json()["id"])
-        assert body["status"] == "error" and body["error"]
+        assert body["status"] == "failed" and body["error"]
+
+
+@needs_ocr
+def test_multi_page_pdf_keeps_page_sequence_and_images():
+    import pymupdf
+
+    source = pymupdf.open(stream=synth.page_pdf(), filetype="pdf")
+    document = pymupdf.open()
+    document.insert_pdf(source)
+    document.insert_pdf(source)
+    data = document.tobytes()
+    source.close()
+    document.close()
+
+    with make_client() as client:
+        response = client.post("/api/documents", files={"file": ("two-pages.pdf", data, "application/pdf")})
+        assert response.status_code == 202
+        job_id = response.json()["id"]
+        body = wait_done(client, job_id)
+        assert body["status"] == "completed"
+        assert body["result"]["page_count"] == 2
+        assert [page["index"] for page in body["result"]["pages"]] == [0, 1]
+        assert client.get(f"/api/documents/{job_id}/pages/0/image").status_code == 200
+        assert client.get(f"/api/documents/{job_id}/pages/1/image").status_code == 200
 
 
 @needs_ocr
@@ -65,7 +90,7 @@ def test_full_flow_upload_poll_blocks_image_and_vqa():
         assert client.get(f"/api/documents/{job_id}/blocks").status_code in {200, 409}
 
         body = wait_done(client, job_id)
-        assert body["status"] == "done" and body["progress"] == 1.0
+        assert body["status"] == "completed" and body["progress"] == 1.0
         assert body["result"]["page_count"] == 1
 
         blocks = client.get(f"/api/documents/{job_id}/blocks").json()
@@ -102,6 +127,24 @@ def test_vqa_without_gemini_key_returns_503():
         assert response.status_code == 503
         assert "GEMINI_API_KEY" in response.json()["detail"]
         assert client.get("/api/health").json()["vqa_ready"] is False
+
+
+def test_vqa_timeout_returns_504():
+    class SlowVQA:
+        name = "slow"
+
+        async def answer(self, image_bytes, question, **kwargs):
+            await asyncio.sleep(0.1)
+            return await MockVQA().answer(image_bytes, question, **kwargs)
+
+    with make_client(vqa=SlowVQA(), vqa_timeout_s=0.01) as client:
+        response = client.post(
+            "/api/vqa",
+            data={"question": "Đọc tiêu đề"},
+            files={"image": ("a.png", synth.page_png(), "image/png")},
+        )
+        assert response.status_code == 504
+        assert "quá lâu" in response.json()["detail"]
 
 
 def test_plugin_validation():

@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAccessibility } from '@/lib/accessibility';
 import { ApiError, getDocument, toBlocks, uploadDocument } from '@/lib/api';
-import { DEMO_BLOCKS, type Block } from '@/lib/demoDocument';
+import type { Block } from '@/lib/types';
 import { useEarcons } from '@/lib/useEarcons';
 
-export type DocPhase = 'demo' | 'uploading' | 'processing' | 'ready' | 'error';
+export type DocPhase = 'idle' | 'uploading' | 'processing' | 'ready' | 'error';
 
 export type DocState = {
   phase: DocPhase;
@@ -28,8 +28,8 @@ export function useDocument() {
   const { announce } = useAccessibility();
   const { play, startProcessing, stopProcessing } = useEarcons();
   const [state, setState] = useState<DocState>({
-    phase: 'demo',
-    blocks: DEMO_BLOCKS,
+    phase: 'idle',
+    blocks: [],
     version: 0,
     progress: 0,
     warnings: [],
@@ -55,7 +55,7 @@ export function useDocument() {
         setState((s) => ({ ...s, phase: 'processing', docId: job.id }));
         announce('Đang phân tích bố cục và nhận dạng chữ');
         const started = Date.now();
-        while (job.status === 'queued' || job.status === 'processing') {
+        while (job.status === 'pending' || job.status === 'processing') {
           if (Date.now() - started > MAX_WAIT_MS) throw new ApiError('Xử lý quá lâu, vui lòng thử tài liệu nhỏ hơn');
           await sleep(POLL_MS);
           if (run !== runRef.current) return;
@@ -64,7 +64,7 @@ export function useDocument() {
           const progress = job.progress;
           setState((s) => ({ ...s, progress }));
         }
-        if (job.status === 'error' || !job.result) throw new ApiError(job.error ?? 'Xử lý tài liệu thất bại');
+        if (job.status === 'failed' || !job.result) throw new ApiError(job.error ?? 'Xử lý tài liệu thất bại');
         const blocks = toBlocks(job.result);
         if (!blocks.length) throw new ApiError('Không tìm thấy nội dung nào trong tài liệu này');
         const warnings = job.result.warnings;
@@ -93,20 +93,7 @@ export function useDocument() {
     [announce, play, startProcessing, stopProcessing],
   );
 
-  const useDemo = useCallback(() => {
-    runRef.current += 1;
-    stopProcessing();
-    setState((s) => ({
-      phase: 'demo',
-      blocks: DEMO_BLOCKS,
-      version: s.version + 1,
-      progress: 0,
-      warnings: [],
-    }));
-    announce('Đã chuyển về tài liệu mẫu');
-  }, [announce, stopProcessing]);
-
-  return { state, upload, useDemo };
+  return { state, upload };
 }
 
 export type DocumentController = ReturnType<typeof useDocument>;

@@ -5,7 +5,7 @@
     "avg_wer": 30.06,
     "avg_num_prec": 88.93,
     "avg_order_acc": 94.68,
-    "avg_latency": 0.973
+    "avg_latency": 3.515
   },
   "category_summary": {
     "slide": {
@@ -14,7 +14,7 @@
       "avg_wer": 6.12,
       "avg_num_prec": 100.0,
       "avg_order_acc": 100.0,
-      "avg_latency": 0.705
+      "avg_latency": 2.546
     },
     "two_column": {
       "count": 5,
@@ -22,7 +22,7 @@
       "avg_wer": 4.64,
       "avg_num_prec": 100.0,
       "avg_order_acc": 100.0,
-      "avg_latency": 1.314
+      "avg_latency": 4.706
     },
     "table": {
       "count": 5,
@@ -30,7 +30,7 @@
       "avg_wer": 56.02,
       "avg_num_prec": 55.72,
       "avg_order_acc": 93.33,
-      "avg_latency": 1.113
+      "avg_latency": 4.124
     },
     "chart": {
       "count": 5,
@@ -38,7 +38,7 @@
       "avg_wer": 53.47,
       "avg_num_prec": 100.0,
       "avg_order_acc": 85.4,
-      "avg_latency": 0.76
+      "avg_latency": 2.683
     }
   },
   "details_by_file": [
@@ -49,7 +49,7 @@
       "wer_percent": 33.33,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 55.56,
-      "latency_seconds": 0.591,
+      "latency_seconds": 2.076,
       "block_count": 9,
       "exact_numbers_count": 4
     },
@@ -60,7 +60,7 @@
       "wer_percent": 38.64,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.747,
+      "latency_seconds": 2.592,
       "block_count": 14,
       "exact_numbers_count": 6
     },
@@ -71,7 +71,7 @@
       "wer_percent": 100.0,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.858,
+      "latency_seconds": 2.886,
       "block_count": 16,
       "exact_numbers_count": 12
     },
@@ -82,7 +82,7 @@
       "wer_percent": 70.37,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 71.43,
-      "latency_seconds": 0.814,
+      "latency_seconds": 3.1,
       "block_count": 14,
       "exact_numbers_count": 6
     },
@@ -93,7 +93,7 @@
       "wer_percent": 25.0,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.792,
+      "latency_seconds": 2.763,
       "block_count": 9,
       "exact_numbers_count": 8
     },
@@ -104,7 +104,7 @@
       "wer_percent": 3.81,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.699,
+      "latency_seconds": 2.53,
       "block_count": 7,
       "exact_numbers_count": 7
     },
@@ -115,7 +115,7 @@
       "wer_percent": 11.32,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.724,
+      "latency_seconds": 2.629,
       "block_count": 7,
       "exact_numbers_count": 7
     },
@@ -126,7 +126,7 @@
       "wer_percent": 5.66,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.715,
+      "latency_seconds": 2.363,
       "block_count": 7,
       "exact_numbers_count": 5
     },
@@ -137,7 +137,7 @@
       "wer_percent": 6.06,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.725,
+      "latency_seconds": 2.534,
       "block_count": 7,
       "exact_numbers_count": 6
     },
@@ -148,7 +148,7 @@
       "wer_percent": 3.77,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 0.664,
+      "latency_seconds": 2.674,
       "block_count": 7,
       "exact_numbers_count": 8
     },
@@ -159,7 +159,7 @@
       "wer_percent": 58.96,
       "numerical_precision_percent": 60.0,
       "reading_order_accuracy_percent": 91.43,
-      "latency_seconds": 1.029,
+      "latency_seconds": 4.16,
       "block_count": 8,
       "exact_numbers_count": 35
     },
@@ -170,7 +170,7 @@
       "wer_percent": 50.53,
       "numerical_precision_percent": 66.67,
       "reading_order_accuracy_percent": 96.0,
-      "latency_seconds": 1.116,
+      "latency_seconds": 3.658,
       "block_count": 7,
       "exact_numbers_count": 33
     },
@@ -181,7 +181,7 @@
       "wer_percent": 60.87,
       "numerical_precision_percent": 46.67,
       "reading_order_accuracy_percent": 93.75,
-      "latency_seconds": 1.094,
+      "latency_seconds": 4.676,
       "block_count": 7,
       "exact_numbers_count": 30
     },
@@ -192,7 +192,7 @@
       "wer_percent": 58.76,
       "numerical_precision_percent": 48.57,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 1.171,
+      "latency_seconds": 4.325,
       "block_count": 8,
       "exact_numbers_count": 35
     },
@@ -203,7 +203,7 @@
       "wer_percent": 51.0,
       "numerical_precision_percent": 56.67,
       "reading_order_accuracy_percent": 85.45,
-      "latency_seconds": 1.156,
+      "latency_seconds": 3.801,
       "block_count": 8,
       "exact_numbers_count": 30
     },
@@ -214,7 +214,7 @@
       "wer_percent": 4.26,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 1.446,
+      "latency_seconds": 5.229,
       "block_count": 20,
       "exact_numbers_count": 17
     },
@@ -225,7 +225,7 @@
       "wer_percent": 3.86,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 1.342,
+      "latency_seconds": 4.685,
       "block_count": 17,
       "exact_numbers_count": 16
     },
@@ -236,7 +236,7 @@
       "wer_percent": 7.61,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 1.325,
+      "latency_seconds": 4.939,
       "block_count": 19,
       "exact_numbers_count": 14
     },
@@ -247,7 +247,7 @@
       "wer_percent": 2.99,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 1.212,
+      "latency_seconds": 4.13,
       "block_count": 20,
       "exact_numbers_count": 14
     },
@@ -258,7 +258,7 @@
       "wer_percent": 4.46,
       "numerical_precision_percent": 100.0,
       "reading_order_accuracy_percent": 100.0,
-      "latency_seconds": 1.247,
+      "latency_seconds": 4.545,
       "block_count": 19,
       "exact_numbers_count": 17
     }

@@ -57,7 +57,7 @@ async def get_document(request: Request, job_id: str) -> JobStatus:
 @router.get("/{job_id}/blocks", response_model=list[OrderedBlock])
 async def get_blocks(request: Request, job_id: str) -> list[OrderedBlock]:
     job = _job_or_404(request, job_id)
-    if job.status != "done" or job.result is None:
+    if job.status != "completed" or job.result is None:
         raise HTTPException(status_code=409, detail="Tài liệu chưa xử lý xong")
     lookup = {b.id: b for page in job.result.pages for b in page.blocks}
     ordered: list[OrderedBlock] = []

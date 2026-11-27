@@ -1,6 +1,6 @@
 'use client';
 
-import type { Block } from '@/lib/demoDocument';
+import type { Block } from '@/lib/types';
 import type { Reader } from '@/lib/useReader';
 
 export function TocNav({ blocks, reader }: { blocks: Block[]; reader: Reader }) {

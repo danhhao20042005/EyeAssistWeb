@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { askVqa } from '@/lib/api';
-import type { Block } from '@/lib/demoDocument';
+import type { Block } from '@/lib/types';
 import { useAccessibility } from '@/lib/accessibility';
 import { useReader } from '@/lib/useReader';
 import { useEarcons } from '@/lib/useEarcons';
@@ -54,6 +54,8 @@ function Workspace({ baseBlocks, docId }: WorkspaceProps) {
 
   const reader = useReader({ blocks, announce, onNavigate, stopEarcons });
   const [pinned, setPinned] = useState(0);
+
+  if (!blocks.length) return null;
 
   useEffect(() => {
     if (follow) setPinned(reader.current);
